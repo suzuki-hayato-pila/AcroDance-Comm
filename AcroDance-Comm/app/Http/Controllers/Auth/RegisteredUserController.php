@@ -29,22 +29,46 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // リクエスト内容を確認
+        // dd($request->all());
+
+        // バリデーション
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'account_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'instagram' => 'nullable|string|max:255',
+            // 'gender' => 'required|string',
+            'gender' => 'required|in:male,female',
+            'location' => 'nullable|string|max:255',
+            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        // プロフィール写真の保存処理
+        $profilePhotoPath = null;
+        if ($request->hasFile('profile_photo')) {
+            $profilePhotoPath = $request->file('profile_photo')->store('profile_photos', 'public');
+        }
+
+        // ユーザー作成
         $user = User::create([
-            'name' => $request->name,
+            'account_name' => $request->account_name,
+            'name' => $request->account_name, // ここで `name` を設定
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'instagram' => $request->instagram,
+            'gender' => $request->gender, //この部分は正しい。
+            'location' => $request->location,
+            'profile_photo' => $profilePhotoPath,
         ]);
 
+        // 登録イベント発火
         event(new Registered($user));
 
+        // ログイン処理
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // ダッシュボードへのリダイレクト
+        return redirect()->route('dashboard');
     }
 }
