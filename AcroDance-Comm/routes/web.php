@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController; // AuthController をインポート
+use App\Http\Controllers\PostController; // PostController　をインポート
 use Illuminate\Support\Facades\Route;
 
 // ホーム画面ルート
@@ -24,5 +25,13 @@ Route::middleware('auth')->group(function () {
 // ログイン関連のルート
 Route::post('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
+// 投稿関連のルート
+Route::middleware(['auth'])->group(function () {
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+});
+
 
 require __DIR__.'/auth.php';
