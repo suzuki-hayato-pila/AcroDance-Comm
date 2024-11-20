@@ -42,4 +42,10 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
     }
+
+    // 投稿画面の活動場所選択画面
+        public function locationCreate()
+    {
+        return view('posts.create_location');
+    }
 }
