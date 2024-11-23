@@ -1,9 +1,8 @@
 <x-app-layout>
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-        <h2 class="text-3xl font-bold mb-6 text-center">新規投稿</h2>
-        <form method="POST" action="{{ route('posts.store') }}">
-            @csrf
-
+    <h2 class="text-3xl font-bold mb-6 text-center">新規投稿</h2>
+    <form method="POST" action="{{ route('posts.store') }}">
+    @csrf
             <!-- タイトル -->
             <div class="mb-6">
                 <label for="title" class="block text-lg font-medium text-gray-700">タイトル</label>
@@ -63,4 +62,17 @@
             </div>
         </form>
     </div>
-</x-app-layout>
+
+        <!-- 修正案を追加 -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const storedLocation = sessionStorage.getItem('selectedLocation');
+                if (storedLocation) {
+                    const locationInput = document.querySelector('#location');
+                    if (locationInput) {
+                        locationInput.value = storedLocation;
+                    }
+                }
+            });
+        </script>
+    </x-app-layout>
