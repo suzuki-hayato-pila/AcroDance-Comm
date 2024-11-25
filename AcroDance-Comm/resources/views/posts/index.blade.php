@@ -4,9 +4,12 @@
 
         @foreach ($posts as $post)
             <div class="border-b py-4">
-                <h3 class="text-lg font-semibold">{{ $post->title }}</h3>
+                <!-- 投稿タイトルに詳細ページへのリンクを追加 -->
+                <a href="{{ route('posts.show', $post->id) }}" class="text-lg font-semibold text-blue-500">
+                    {{ $post->title }}
+                </a>
                 <p class="text-gray-600">{{ $post->content }}</p>
-                <p class="text-gray-500">活動場所: {{ $post->location }}</p>
+                <p class="text-gray-500">活動場所: {{ $post->location_name }}</p>
             </div>
         @endforeach
     </div>
