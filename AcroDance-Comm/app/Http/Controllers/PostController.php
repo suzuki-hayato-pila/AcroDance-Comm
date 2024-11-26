@@ -18,6 +18,9 @@ class PostController extends Controller
     // 投稿フォームを表示
     public function create()
     {
+        // セッションデータのデバッグログを追加
+        logger()->info('セッションの全データ: ', session()->all());
+
         return view('posts.create');
     }
 
@@ -32,13 +35,23 @@ class PostController extends Controller
             'preferred_group_size' => 'nullable|string',
         ]);
 
+        // デバッグ用に投稿時のセッションデータをログに出力
+        logger()->info('投稿時のセッションの全データ: ', session()->all());
+
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'location_name' => $request->location_name, // 追加
+            'location_name' => session('selectedLocation'), // セッションから取得
             'preferred_gender' => $request->preferred_gender,
             'preferred_group_size' => $request->preferred_group_size,
             'user_id' => Auth::id(),
+        ]);
+
+        // 保存されたデータのデバッグログを追加
+        logger()->info('保存された投稿: ', [
+            'title' => $request->title,
+            'content' => $request->content,
+            'location_name' => session('selectedLocation'),
         ]);
 
         return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
@@ -48,6 +61,10 @@ class PostController extends Controller
     public function locationCreate()
     {
         $selectedLocation = session('selectedLocation', null); // セッションから活動場所を取得
+
+        // セッションデータのデバッグログを追加
+        logger()->info('セッションの全データ: ', session()->all());
+
         return view('posts.create_location', compact('selectedLocation'));
     }
 
@@ -58,7 +75,12 @@ class PostController extends Controller
             'location_name' => 'required|string|max:255', // 活動場所名のバリデーション
         ]);
 
+        logger()->info('リクエストから取得した活動場所: ' . $request->location_name);
+
         session(['selectedLocation' => $request->location_name]); // セッションに保存
+
+        // セッション全体のデバッグログを追加
+        logger()->info('セッションの全データ: ', session()->all());
 
         return redirect()->route('posts.create'); // 投稿画面にリダイレクト
     }

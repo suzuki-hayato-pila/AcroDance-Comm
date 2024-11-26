@@ -17,7 +17,8 @@ class Post extends Model
         'content',
         'preferred_gender',
         'preferred_group_size',
-        'user_id',
+        'location_name', //追加
+        'user_id'
     ];
 
     public function user()

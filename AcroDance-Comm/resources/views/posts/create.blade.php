@@ -1,5 +1,15 @@
 <x-app-layout>
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
+
+        <!-- デバッグ用にセッションデータを表示（ここを追加） -->
+        <div class="bg-yellow-100 text-yellow-700 p-4 rounded-md mb-4">
+            <h3 class="font-bold">セッションデバッグ情報</h3>
+            {{-- <pre>{{ print_r(session()->all(), true) }}</pre> --}}
+            <pre>{{ var_export(session()->all(), true) }}</pre>
+        </div>
+        <!-- 追加部分ここまで -->
+
+
         <h2 class="text-3xl font-bold mb-6 text-center">新規投稿</h2>
         <form method="POST" action="{{ route('posts.store') }}">
             @csrf
@@ -17,7 +27,7 @@
                     class="w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
             </div>
 
-            <!-- 活動場所 -->
+            {{-- <!-- 活動場所 -->(修正前)
             <div class="mb-6">
                 <label for="location" class="block text-lg font-medium text-gray-700">活動場所</label>
                 <div id="location-display"
@@ -25,7 +35,18 @@
                     活動場所が設定されていません
                 </div>
                 <a href="{{ route('posts.location.create') }}" class="text-blue-600 underline mt-2 block">活動場所を設定する</a>
+            </div> --}}
+
+            {{-- <!-- 活動場所 -->（修正後） --}}
+            <div class="mb-6">
+                <label for="location_name" class="block text-lg font-medium text-gray-700">活動場所</label>
+                <div id="location-display"
+                    class="w-full border-gray-300 rounded-lg shadow-sm bg-gray-100 px-4 py-2">
+                    {{ session('selectedLocation', '活動場所が設定されていません') }}
+                </div>
+                <a href="{{ route('posts.location.create') }}" class="text-blue-600 underline mt-2 block">活動場所を設定する</a>
             </div>
+
 
 
             <!-- 希望性別 -->
