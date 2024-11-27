@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -23,6 +23,48 @@
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout> --}}
+
+
+<x-app-layout>
+    <div class="flex justify-center items-center min-h-screen bg-gray-100">
+        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+            <!-- タイトル -->
+            <h2 class="text-center text-2xl font-bold mb-6">プロフィール</h2>
+
+            <!-- プロフィール情報 -->
+            <div class="text-center mb-6">
+                <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-24 h-24 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
+                <p class="text-gray-600">{{ $user->email }}</p>
+                <p class="text-gray-600">Instagram: instagram.com/your-profile</p>
+            </div>
+
+            <!-- 編集ボタン -->
+            <div class="text-center mb-6">
+                <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+                    編集
+                </a>
+            </div>
+
+            <!-- 自己紹介 -->
+            <div class="bg-gray-100 p-4 rounded-md mb-6">
+                <h3 class="text-lg font-semibold">自己紹介</h3>
+                <p class="text-gray-600">
+                    社会人になってから、ダンスとアクロバットを独学で始めました。よろしくお願いします。
+                </p>
+            </div>
+
+            <!-- 投稿一覧 -->
+            <div>
+                <h3 class="text-lg font-semibold mb-4">投稿一覧</h3>
+                <ul class="space-y-2">
+                    <li class="bg-gray-200 p-2 rounded-md">バク転練習メンバー募集</li>
+                    <li class="bg-gray-200 p-2 rounded-md">ヒップホップ練習しませんか？</li>
+                </ul>
             </div>
         </div>
     </div>

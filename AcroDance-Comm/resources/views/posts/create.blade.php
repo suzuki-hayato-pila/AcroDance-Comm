@@ -11,7 +11,7 @@
 
 
         <h2 class="text-3xl font-bold mb-6 text-center">新規投稿</h2>
-        <form method="POST" action="{{ route('posts.store') }}">
+        <form method="POST" action="{{ route('posts.store') }}" class="pb-20"> <!-- ここで余白を追加 -->
             @csrf
             <!-- タイトル -->
             <div class="mb-6">

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="max-w-7xl mx-auto p-6 pb-20">
         <h2 class="text-2xl font-bold mb-4">投稿一覧</h2>
 
         @foreach ($posts as $post)

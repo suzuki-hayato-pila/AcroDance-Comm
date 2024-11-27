@@ -1,13 +1,15 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 py-6">
-        <!-- 上部タイトル部分 -->
-        <div class="flex justify-between items-center bg-gray-200 p-4 rounded-md">
-            <h1 class="text-xl font-bold">アクロバット・ダンスコミュニティ</h1>
-            <a href="{{ route('login') }}" class="text-blue-500">ログイン</a>
-        </div>
+
+        <!-- 通知メッセージの表示 -->
+        @if (session('status'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6">
+                {{ session('status') }}
+            </div>
+        @endif
 
         <!-- 中段のメイン内容 -->
-        <div class="my-6">
+        <div class="my-6 pb-[100px]">
             <!-- メインキャッチフレーズ -->
             <div class="bg-gray-100 p-6 text-center rounded-md">
                 <h2 class="text-lg font-semibold">ダンスとアクロバットの練習仲間<br>見つけませんか？</h2>
@@ -28,7 +30,7 @@
         </div>
 
         <!-- 下部のナビゲーション -->
-        <div class="fixed bottom-0 w-full bg-gray-200 p-4 flex justify-around">
+        <div class="fixed bottom-0 w-full bg-gray-200 p-4 flex justify-around h-[80px]">
             <a href="{{ route('home') }}" class="text-center">
                 <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9m0 0l9 9m-9-9v18"></path>
