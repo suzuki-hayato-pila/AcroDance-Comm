@@ -57,4 +57,38 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Show the edit bio form.
+     */
+    public function editBio(Request $request): View
+    {
+        return view('profile.edit_bio', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Update the user's bio.
+     */
+    public function updateBio(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'bio' => 'nullable|string|max:1000', // 自己紹介のバリデーション
+        ]);
+
+        // デバッグログ: リクエスト内容と現在のbio
+        logger()->info('Request Data: ', ['bio' => $request->input('bio')]);
+        logger()->info('Before Update Bio: ', ['bio' => $request->user()->bio]);
+
+        // bioのデータベース更新
+        $request->user()->update([
+            'bio' => $request->input('bio'),
+        ]);
+
+        // デバッグログ: 更新後のbio
+        logger()->info('After Update Bio: ', ['bio' => $request->user()->bio]);
+
+        return redirect()->route('profile.edit')->with('status', '自己紹介を更新しました。');
+    }
 }

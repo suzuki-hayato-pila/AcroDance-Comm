@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/edit-bio', [ProfileController::class, 'editBio'])->name('profile.edit_bio');
+    Route::patch('/profile/update-bio', [ProfileController::class, 'updateBio'])->name('profile.update_bio'); // PATCHルートの確認
 });
 
 // ログイン関連のルート

@@ -71,18 +71,21 @@ class PostController extends Controller
     // 活動場所をセッションに保存
     public function setLocation(Request $request)
     {
+        // リクエストデータをバリデーション
         $request->validate([
-            'location_name' => 'required|string|max:255', // 活動場所名のバリデーション
+            'location_name' => 'required|string|max:255', // バリデーションルール
         ]);
 
+        // デバッグ用にリクエストデータをログ出力
         logger()->info('リクエストから取得した活動場所: ' . $request->location_name);
 
-        session(['selectedLocation' => $request->location_name]); // セッションに保存
+        // セッションに保存
+        session(['selectedLocation' => $request->location_name]);
 
-        // セッション全体のデバッグログを追加
-        logger()->info('セッションの全データ: ', session()->all());
+        // セッション全体の確認
+        logger()->info('セッション保存後の全データ: ', session()->all());
 
-        return redirect()->route('posts.create'); // 投稿画面にリダイレクト
+        return redirect()->route('posts.create'); // 投稿作成画面にリダイレクト
     }
 
     // 投稿詳細を表示

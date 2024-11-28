@@ -26,6 +26,7 @@ class User extends Authenticatable
         'gender',
         'location',
         'profile_photo',
+        'bio', // bioカラムを追加
     ];
 
     /**

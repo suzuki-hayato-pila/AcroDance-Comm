@@ -45,7 +45,7 @@
 
             <!-- 編集ボタン -->
             <div class="text-center mb-6">
-                <a href="{{ route('profile.edit') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+                <a href="{{ route('profile.edit_bio') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
                     編集
                 </a>
             </div>
@@ -54,7 +54,7 @@
             <div class="bg-gray-100 p-4 rounded-md mb-6">
                 <h3 class="text-lg font-semibold">自己紹介</h3>
                 <p class="text-gray-600">
-                    社会人になってから、ダンスとアクロバットを独学で始めました。よろしくお願いします。
+                    {{ $user->bio ?: '自己紹介がまだありません。編集ボタンから追加してください。' }}
                 </p>
             </div>
 
@@ -69,3 +69,4 @@
         </div>
     </div>
 </x-app-layout>
+
