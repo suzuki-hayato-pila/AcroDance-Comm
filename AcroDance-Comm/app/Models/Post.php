@@ -25,4 +25,11 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // 追加部分: maps_infos テーブルとのリレーション
+    public function mapInfo()
+    {
+        return $this->hasOne(MapInfo::class); // maps_infos テーブルと紐付け
+    }
+
 }

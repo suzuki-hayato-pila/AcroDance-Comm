@@ -37,14 +37,19 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/location', [PostController::class, 'locationCreate'])->name('posts.location.create');
     Route::post('/posts/location', [PostController::class, 'setLocation'])->name('posts.location.set');
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); // 修正済み
 });
 
 // 投稿詳細ページのルート
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+// Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 // 検索ページの仮ルート
 Route::get('/search', function () {
     return view('search.search');
 })->name('search');
+
+// reset-password関連
+// Route::get('/reset-password/{token}', [\App\Http\Controllers\Auth\NewPasswordController::class, 'create'])
+//     ->name('password.reset');
 
 require __DIR__.'/auth.php';
