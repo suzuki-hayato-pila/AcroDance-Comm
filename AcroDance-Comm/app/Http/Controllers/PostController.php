@@ -63,14 +63,15 @@ class PostController extends Controller
     // 活動場所をセッションに保存
     public function setLocation(Request $request)
     {
+        // デバッグ用ログ
+        logger()->info('受信したリクエストデータ: ', $request->all());
+
         $request->validate([
             'location_name' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ]);
 
-        // デバッグ用ログ
-        logger()->info('受信したリクエストデータ: ', $request->all());
 
         // データベースに保存
         MapInfo::create([
@@ -84,9 +85,6 @@ class PostController extends Controller
         session([
             'selectedLocation' => $request->location_name,
         ]);
-
-        // セッション保存後の状態をログに記録
-        logger()->info('セッション保存後: ', session()->all());
 
         return redirect()->route('posts.create')->with('success', '活動場所が保存されました！');
     }

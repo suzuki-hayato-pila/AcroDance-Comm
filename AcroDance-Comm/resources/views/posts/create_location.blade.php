@@ -20,7 +20,7 @@
             <!-- 住所検索フォーム -->
             <div class="mb-4">
                 <label for="location-search" class="block text-sm font-medium text-gray-700">住所を入力</label>
-                <input type="text" id="location-search" class="block w-full border-gray-300 rounded-md shadow-sm">
+                <input type="text" id="location-search" class="block w-full border-gray-300 rounded-md shadow-sm" required>
                 <button id="search-location" type="button" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md">検索</button>
             </div>
 
@@ -40,55 +40,78 @@
             <!-- 設定ボタン -->
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">活動場所を設定</button>
         </form>
-        <!-- フォーム終了 -->
     </div>
 
     <!-- Google Maps のスクリプト -->
     <script>
-        let map, marker;
+        let map, marker, geocoder;
 
-        window.initMap = function initMap() {
-            // 初期地図設定
+        // 初期化
+        function initMap() {
+            // Geocoderのインスタンス作成
+            geocoder = new google.maps.Geocoder();
+
+            // 地図の初期設定
             map = new google.maps.Map(document.getElementById("map"), {
                 center: { lat: 35.6895, lng: 139.6917 }, // デフォルト位置（東京）
                 zoom: 15,
             });
+        }
 
-            // 地図クリック時の処理
-            map.addListener("click", (event) => {
-                const lat = event.latLng.lat(); // 緯度
-                const lng = event.latLng.lng(); // 経度
-
-                document.getElementById("latitude").value = lat;
-                document.getElementById("longitude").value = lng;
-
-                if (marker) marker.setMap(null); // 既存のマーカーを削除
-                marker = new google.maps.Marker({
-                    position: { lat, lng },
-                    map: map,
-                });
-            });
-        };
-
-        // フォーム送信時の緯度・経度チェック
+        // 住所検索ボタンのクリックイベント
         document.addEventListener("DOMContentLoaded", () => {
+            const searchButton = document.getElementById("search-location");
             const locationForm = document.getElementById("locationForm");
 
-            if (locationForm) {
-                locationForm.addEventListener("submit", (e) => {
-                    const lat = document.getElementById("latitude").value;
-                    const lng = document.getElementById("longitude").value;
+            searchButton.addEventListener("click", () => {
+                const address = document.getElementById("location-search").value;
 
-                    if (!lat || !lng) {
-                        e.preventDefault();
-                        alert("地図上で場所をクリックして、緯度と経度を指定してください。");
+                if (!address) {
+                    alert("住所を入力してください。");
+                    return;
+                }
+
+                // Geocoding APIで住所から緯度・経度を取得
+                geocoder.geocode({ address: address }, (results, status) => {
+                    if (status === "OK" && results.length > 0) {
+                        const location = results[0].geometry.location;
+                        const lat = location.lat();
+                        const lng = location.lng();
+
+                        // 地図のセンターを設定
+                        map.setCenter(location);
+
+                        // マーカーを設定
+                        if (marker) marker.setMap(null); // 既存マーカーを削除
+                        marker = new google.maps.Marker({
+                            map: map,
+                            position: location,
+                        });
+
+                        // 緯度・経度をフォームに設定
+                        document.getElementById("latitude").value = lat;
+                        document.getElementById("longitude").value = lng;
+                    } else {
+                        alert("住所の検索に失敗しました: " + status);
                     }
                 });
-            }
+            });
+
+            // フォーム送信時のバリデーション
+            locationForm.addEventListener("submit", (e) => {
+                const lat = document.getElementById("latitude").value;
+                const lng = document.getElementById("longitude").value;
+
+                if (!lat || !lng) {
+                    e.preventDefault();
+                    alert("住所を検索して緯度と経度を取得してください。");
+                }
+            });
         });
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{ env('VITE_GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=places"
         async
+        defer
     ></script>
 </x-app-layout>

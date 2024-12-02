@@ -12,7 +12,6 @@
         <!-- 活動場所の名前 -->
         <div class="bg-gray-100 p-4 rounded-md">
             <h3 class="text-lg font-bold">活動場所の名前</h3>
-            <!-- 修正: $mapInfoが存在しない場合のエラーハンドリングを追加 -->
             <p class="text-gray-700">{{ $mapInfo->activity_location ?? 'データなし' }}</p>
         </div>
 
@@ -24,36 +23,33 @@
     </div>
 
     <!-- 地図表示用のJavaScript -->
-    <script type="module">
-        // 修正: Google Maps APIの読み込みを追加
-        import { Loader } from "@googlemaps/js-api-loader";
-
-        const loader = new Loader({
-            apiKey: "{{ env('VITE_GOOGLE_MAPS_API_KEY') }}", // 修正: 環境変数の利用方法を修正
-            libraries: ["places"],
-        });
-
-        loader.load().then(() => {
-            // 修正: $mapInfoが存在しない場合のデフォルト値を設定
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // $mapInfoが存在しない場合のデフォルト値を設定
             const position = {
-                lat: {{ $mapInfo->latitude ?? 0 }},
-                lng: {{ $mapInfo->longitude ?? 0 }}
+                lat: {{ $mapInfo->latitude ?? 35.6895 }}, // 緯度
+                lng: {{ $mapInfo->longitude ?? 139.6917 }} // 経度
             };
 
-            // 地図の初期化
+            // 地図を初期化
             const map = new google.maps.Map(document.getElementById("map"), {
                 center: position,
-                zoom: 15,
+                zoom: 15, // ズームレベル
             });
 
-            // マーカーの追加
+            // マーカーを追加
             new google.maps.Marker({
                 position: position,
                 map: map,
-                title: "{{ $mapInfo->activity_location ?? '不明' }}", // 修正: エラーハンドリング
+                title: "{{ $mapInfo->activity_location ?? '不明' }}", // マーカーのタイトル
             });
-        }).catch((error) => {
-            console.error("Google Maps API の読み込みに失敗しました:", error);
         });
     </script>
+
+    <!-- Google Maps API -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('VITE_GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=places"
+        async
+        defer
+    ></script>
 </x-app-layout>
