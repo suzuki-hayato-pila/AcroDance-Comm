@@ -3,7 +3,7 @@
         <!-- 上部タイトル部分 -->
         <div class="bg-gray-200 p-4 rounded-md">
             <h1 class="text-2xl font-bold">{{ $post->title }}</h1>
-            <p class="text-gray-700">活動場所: {{ $post->location }}</p>
+            <p class="text-gray-700">活動場所: {{ $post->location_name }}</p>
         </div>
 
         <!-- 地図表示部分 -->
