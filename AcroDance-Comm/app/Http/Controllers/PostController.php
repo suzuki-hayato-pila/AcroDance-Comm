@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\MapInfo; // MapInfo モデルをインポート
+use App\Models\MapInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -26,75 +27,119 @@ class PostController extends Controller
     // 投稿を保存
     public function store(Request $request)
     {
+        Log::info('Request Data: ', $request->all());
+
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'location_name' => 'nullable|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'preferred_gender' => 'nullable|string',
             'preferred_group_size' => 'nullable|string',
         ]);
 
-        Post::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'location_name' => session('selectedLocation'),
-            'preferred_gender' => $request->preferred_gender,
-            'preferred_group_size' => $request->preferred_group_size,
-            'user_id' => Auth::id(),
-        ]);
+        try {
+            // 投稿データを作成
+            $post = Post::create([
+                'title' => $request->title,
+                'content' => $request->content,
+                'location_name' => $request->location_name,
+                'preferred_gender' => $request->preferred_gender,
+                'preferred_group_size' => $request->preferred_group_size,
+                'user_id' => Auth::id(),
+            ]);
 
-        logger()->info('保存された投稿: ', [
-            'title' => $request->title,
-            'content' => $request->content,
-            'location_name' => session('selectedLocation'),
-        ]);
+            // 関連する地図情報を作成
+            MapInfo::create([
+                'activity_location' => $request->location_name,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'post_id' => $post->id,
+            ]);
 
-        return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
+            // セッションに保存
+            session([
+                'selectedLocation' => $request->location_name,
+            ]);
+
+            Log::info('Post created successfully', ['post_id' => $post->id]);
+
+            return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
+        } catch (\Exception $e) {
+            Log::error('Error while storing post: ' . $e->getMessage());
+
+            // ユーザーへのフィードバック
+            return redirect()
+                ->route('posts.create')
+                ->withErrors(['error' => '投稿の保存中にエラーが発生しました。再度お試しください。']);
+        }
     }
 
-    // 投稿画面の活動場所選択画面
-    public function locationCreate()
-    {
-        $selectedLocation = session('selectedLocation', null);
-        logger()->info('セッションの全データ: ', session()->all());
-        return view('posts.create_location', compact('selectedLocation'));
-    }
-
-    // 活動場所をセッションに保存
-    public function setLocation(Request $request)
-    {
-        // デバッグ用ログ
-        logger()->info('受信したリクエストデータ: ', $request->all());
-
-        $request->validate([
-            'location_name' => 'required|string|max:255',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
-
-
-        // データベースに保存
-        MapInfo::create([
-            'activity_location' => $request->location_name,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'post_id' => Auth::id(),
-        ]);
-
-        // セッションに保存
-        session([
-            'selectedLocation' => $request->location_name,
-        ]);
-
-        return redirect()->route('posts.create')->with('success', '活動場所が保存されました！');
-    }
-
-    // 投稿詳細を表示
+    // 投稿詳細画面
     public function show($id)
     {
-        $post = Post::findOrFail($id); // 投稿を取得
-        $mapInfo = $post->mapInfo;    // MapInfoとのリレーションを使用
+        try {
+            $post = Post::with('mapInfo')->findOrFail($id);
+        } catch (\Exception $e) {
+            Log::error('Post not found: ' . $e->getMessage());
+            return redirect()->route('posts.index')->withErrors(['error' => '指定された投稿が見つかりません。']);
+        }
 
-        return view('posts.show', compact('post', 'mapInfo'));
+        return view('posts.show', compact('post'));
     }
 }
+
+
+
+
+
+    // public function index()
+    // {
+    //     $posts = Post::with(['mapInfo:id,post_id,activity_location,latitude,longitude'])
+    //         ->orderBy('id', 'desc')
+    //         ->get();
+    //     return view('posts.index', compact('posts'));
+    // }
+
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'content' => 'required|string',
+        //     'location_name' => 'required|string|max:255',
+        //     'latitude' => 'required|numeric',
+        //     'longitude' => 'required|numeric',
+        //     'preferred_gender' => 'nullable|string',
+        //     'preferred_group_size' => 'nullable|string',
+        // ], [
+        //     'title.required' => 'タイトルは必須です。',
+        //     'content.required' => '内容は必須です。',
+        //     'location_name.required' => '活動場所は必須です。',
+        //     'latitude.required' => '緯度が見つかりません。',
+        //     'longitude.required' => '経度が見つかりません。',
+        // ]);
+
+        // DB::beginTransaction();
+        // try {
+        //     $post = Post::create([
+        //         'title' => $request->title,
+        //         'content' => $request->content,
+        //         'location_name' => $request->location_name,
+        //         'preferred_gender' => $request->preferred_gender,
+        //         'preferred_group_size' => $request->preferred_group_size,
+        //         'user_id' => Auth::id(),
+        //     ]);
+
+        //     MapInfo::create([
+        //         'activity_location' => $request->location_name,
+        //         'latitude' => $request->latitude,
+        //         'longitude' => $request->longitude,
+        //         'post_id' => $post->id,
+        //     ]);
+
+        //     DB::commit();
+        //     Log::info('Post created successfully', ['post_id' => $post->id]);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::error('Error while creating post: ' . $e->getMessage());
+        //     return redirect()->back()->withErrors(['error' => '投稿の保存中に問題が発生しました。']);
+        // }

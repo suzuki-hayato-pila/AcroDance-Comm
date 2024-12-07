@@ -9,20 +9,20 @@ class MapInfo extends Model
 {
     use HasFactory;
 
-    // テーブル名を指定
-    protected $table = 'map_infos';
-
-    public $timestamps = false; // タイムスタンプを無効化
-
+    public $timestamps = false; // これでtimestampsの自動管理を無効化
     protected $fillable = [
-        'activity_location', // 活動場所の名前
-        'latitude',          // 緯度
-        'longitude',         // 経度
-        'post_id',           // 投稿のID（リレーション用）
+        'activity_location',
+        'latitude',
+        'longitude',
+        'post_id',
     ];
 
+    // 関連データのEager Loadingを有効化
+    protected $with = ['post'];
+
+    // Postとの関連付け (多対1)
     public function post()
     {
-        return $this->belongsTo(Post::class); // Post モデルとのリレーション
+        return $this->belongsTo(Post::class, 'post_id');
     }
 }

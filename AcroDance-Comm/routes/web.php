@@ -5,51 +5,40 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-// トップ画面ルート（ログイン状態に応じた表示）
+// ホームページ
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// ログイン後のリダイレクト先を home に変更
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return redirect()->route('home')->with('status', 'ログインが完了しました。');
-    })->name('dashboard');
+// ダッシュボード
+Route::get('/dashboard', function () {
+    return redirect()->route('home')->with('status', 'ログインが完了しました。');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// プロフィール関連
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+    Route::patch('/', [ProfileController::class, 'update'])->name('update');
+    Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    Route::get('/edit-bio', [ProfileController::class, 'editBio'])->name('edit_bio');
+    Route::patch('/update-bio', [ProfileController::class, 'updateBio'])->name('update_bio');
 });
 
-// プロフィール関連ルート
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/edit-bio', [ProfileController::class, 'editBio'])->name('profile.edit_bio');
-    Route::patch('/profile/update-bio', [ProfileController::class, 'updateBio'])->name('profile.update_bio'); // PATCHルートの確認
+// 認証関連
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// 投稿関連
+Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/create', [PostController::class, 'create'])->name('create');
+    Route::post('/', [PostController::class, 'store'])->name('store');
+    Route::get('/{id}', [PostController::class, 'show'])->name('show');
 });
 
-// ログイン関連のルート
-Route::post('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
-// 投稿関連のルート
-Route::middleware(['auth'])->group(function () {
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/posts/location', [PostController::class, 'locationCreate'])->name('posts.location.create');
-    Route::post('/posts/location', [PostController::class, 'setLocation'])->name('posts.location.set');
-    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); // 修正済み
-});
-
-// 投稿詳細ページのルート
-// Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
-// 検索ページの仮ルート
+// 検索機能
 Route::get('/search', function () {
     return view('search.search');
 })->name('search');
 
-// reset-password関連
-// Route::get('/reset-password/{token}', [\App\Http\Controllers\Auth\NewPasswordController::class, 'create'])
-//     ->name('password.reset');
-
-require __DIR__.'/auth.php';
+// 認証に関するルート
+require __DIR__ . '/auth.php';

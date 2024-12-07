@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <div class="max-w-7xl mx-auto p-6">
         <h2 class="text-2xl font-bold mb-4">活動場所の設定</h2>
 
@@ -114,4 +114,4 @@
         async
         defer
     ></script>
-</x-app-layout>
+</x-app-layout> --}}
