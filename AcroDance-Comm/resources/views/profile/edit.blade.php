@@ -61,12 +61,21 @@
             <!-- 投稿一覧 -->
             <div>
                 <h3 class="text-lg font-semibold mb-4">投稿一覧</h3>
+
+                <!-- 投稿一覧をループで表示 -->
                 <ul class="space-y-2">
-                    <li class="bg-gray-200 p-2 rounded-md">バク転練習メンバー募集</li>
-                    <li class="bg-gray-200 p-2 rounded-md">ヒップホップ練習しませんか？</li>
+                    @foreach ($posts as $post) <!-- 投稿一覧を取得しループ -->
+                    <li class="bg-gray-200 p-2 rounded-md">
+                        <!-- タイトルをクリックで show.blade.php に遷移 -->
+                        <a href="{{ route('posts.show', $post->id) }}" class="text-blue-600 hover:underline">
+                            {{ $post->title }}
+                        </a>
+                    </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
     </div>
 </x-app-layout>
+
 

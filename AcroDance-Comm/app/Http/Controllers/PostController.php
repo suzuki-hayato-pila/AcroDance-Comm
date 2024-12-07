@@ -13,8 +13,20 @@ class PostController extends Controller
     // 投稿一覧を表示
     public function index()
     {
+        try {
         $posts = Post::orderBy('id', 'desc')->get(); // id カラムで並び替え
+
+        // デバッグログでデータを確認
+        Log::info('Fetched Posts: ', ['posts' => $posts]);
+
         return view('posts.index', compact('posts'));
+    } catch (\Exception $e) {
+        // エラーログを出力
+        Log::error('Error in PostController@index: ' . $e->getMessage());
+
+        // エラー画面を返すかリダイレクト
+        return redirect()->route('home')->withErrors('投稿一覧の取得に失敗しました。');
+    }
     }
 
     // 投稿フォームを表示
@@ -88,6 +100,7 @@ class PostController extends Controller
 
         return view('posts.show', compact('post'));
     }
+
 }
 
 
