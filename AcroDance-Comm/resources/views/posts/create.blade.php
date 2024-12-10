@@ -1,17 +1,7 @@
 <x-app-layout>
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-
-        <!-- デバッグ用にセッションデータを表示（ここを追加） -->
-        <div class="bg-yellow-100 text-yellow-700 p-4 rounded-md mb-4">
-            <h3 class="font-bold">セッションデバッグ情報</h3>
-            {{-- <pre>{{ print_r(session()->all(), true) }}</pre> --}}
-            <pre>{{ var_export(session()->all(), true) }}</pre>
-        </div>
-        <!-- 追加部分ここまで -->
-
-
         <h2 class="text-3xl font-bold mb-6 text-center">新規投稿</h2>
-        <form method="POST" action="{{ route('posts.store') }}" class="pb-20"> <!-- ここで余白を追加 -->
+        <form method="POST" action="{{ route('posts.store') }}" id="postForm" class="pb-20">
             @csrf
             <!-- タイトル -->
             <div class="mb-6">
@@ -27,27 +17,20 @@
                     class="w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
             </div>
 
-            {{-- <!-- 活動場所 -->(修正前)
-            <div class="mb-6">
-                <label for="location" class="block text-lg font-medium text-gray-700">活動場所</label>
-                <div id="location-display"
-                    class="w-full border-gray-300 rounded-lg shadow-sm bg-gray-100 px-4 py-2">
-                    活動場所が設定されていません
-                </div>
-                <a href="{{ route('posts.location.create') }}" class="text-blue-600 underline mt-2 block">活動場所を設定する</a>
-            </div> --}}
-
-            {{-- <!-- 活動場所 -->（修正後） --}}
+            <!-- 活動場所 -->
             <div class="mb-6">
                 <label for="location_name" class="block text-lg font-medium text-gray-700">活動場所</label>
-                <div id="location-display"
-                    class="w-full border-gray-300 rounded-lg shadow-sm bg-gray-100 px-4 py-2">
-                    {{ session('selectedLocation', '活動場所が設定されていません') }}
-                </div>
-                <a href="{{ route('posts.location.create') }}" class="text-blue-600 underline mt-2 block">活動場所を設定する</a>
+                <input type="text" id="location_name" name="location_name" required
+                    class="w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
+                <button type="button" id="search-location" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md">住所を検索</button>
             </div>
 
+            <!-- 地図表示 -->
+            <div id="map" class="w-full h-64 mb-4"></div>
 
+            <!-- 緯度と経度 (hidden) -->
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
 
             <!-- 希望性別 -->
             <div class="mb-6">
@@ -82,41 +65,8 @@
         </form>
     </div>
 
-    <!-- 修正案を追加 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const titleInput = document.querySelector('#title');
-            const contentInput = document.querySelector('#content');
-            const locationDisplay = document.querySelector('#location-display');
-            const genderSelect = document.querySelector('#preferred_gender');
-            const groupSizeSelect = document.querySelector('#preferred_group_size');
+    <!-- create.js を読み込む -->
+    <script type="module" src="{{ mix('resources/js/create.js') }}"></script>
 
-            // 既存データの復元
-            const storedTitle = sessionStorage.getItem('postTitle');
-            const storedContent = sessionStorage.getItem('postContent');
-            const storedLocation = sessionStorage.getItem('selectedLocation');
-            const storedGender = sessionStorage.getItem('preferredGender');
-            const storedGroupSize = sessionStorage.getItem('preferredGroupSize');
 
-            if (storedTitle) titleInput.value = storedTitle;
-            if (storedContent) contentInput.value = storedContent;
-            if (storedLocation) locationDisplay.textContent = storedLocation;
-            if (storedGender) genderSelect.value = storedGender;
-            if (storedGroupSize) groupSizeSelect.value = storedGroupSize;
-
-            // 入力データを保存
-            titleInput.addEventListener('input', () => {
-                sessionStorage.setItem('postTitle', titleInput.value);
-            });
-            contentInput.addEventListener('input', () => {
-                sessionStorage.setItem('postContent', contentInput.value);
-            });
-            genderSelect.addEventListener('change', () => {
-                sessionStorage.setItem('preferredGender', genderSelect.value);
-            });
-            groupSizeSelect.addEventListener('change', () => {
-                sessionStorage.setItem('preferredGroupSize', groupSizeSelect.value);
-            });
-        });
-    </script>
 </x-app-layout>
