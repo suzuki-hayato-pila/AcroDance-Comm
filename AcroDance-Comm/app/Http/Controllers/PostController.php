@@ -13,10 +13,14 @@ class PostController extends Controller
     // 投稿一覧を表示
     public function index()
     {
+        // return view('コメント');
         // $posts = Post::orderBy('id', 'desc')->get(); // id カラムで並び替え
-        // ページネーションを適用（1ページあたり10件のデータ）
-        // $posts = Post::orderBy('id', 'desc')->paginate(10);
-        // デバッグログで確認
+        // // ページネーションを適用（1ページあたり10件のデータ）
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        // $posts = Post::with('mapInfo')->orderBy('id', 'desc')->paginate(10);
+        // $posts = MapInfo::orderBy('post_id', 'desc')->get();
+
+        // // デバッグログで確認
         // Log::info('Index method with pagination', ['page' => request('page', 1), 'total' => $posts->total()]);
         // Log::info('Posts fetched successfully', ['posts' => $posts->toArray()]);
         // Log::info('Index method: Fetched posts', ['posts' => $posts->toArray()]);
@@ -26,13 +30,13 @@ class PostController extends Controller
         // try {
         //     $posts = Post::orderBy('id', 'desc')->paginate(10);
         //     Log::info('Index method: Posts fetched successfully');
-        //     return view('posts.index', compact('posts'));
+            return view('posts.index', compact('posts'));
         // } catch (\Exception $e) {
         //     Log::error('Error in posts.index view: ' . $e->getMessage());
         //     return "Error: " . $e->getMessage();
         // }
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        dd($posts->items()); // ページ内のアイテムのみダンプ
+        // $posts = Post::orderBy('id', 'desc')->paginate(10);
+        // dd($posts->items()); // ページ内のアイテムのみダンプ
     }
 
     // 投稿フォームを表示

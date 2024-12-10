@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- @if (session('success'))
+    @if (session('success'))
     <div class="bg-green-200 text-green-700 p-4 rounded-md">
         {{ session('success') }}
     </div>
@@ -23,9 +23,9 @@
             {{ $posts->links() }}
         </div>
 
-    </div> --}}
+    </div>
     {{-- 簡素化してトライした分 --}}
-    <h1>投稿一覧</h1>
+    {{-- <h1>投稿一覧</h1> --}}
     {{-- @foreach ($posts as $post)
         <p>{{ $post->title }}</p>
     @endforeach --}}
