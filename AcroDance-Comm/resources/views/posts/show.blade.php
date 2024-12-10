@@ -46,4 +46,8 @@
             <p class="text-gray-700">{{ $post->content }}</p>
         </div>
     </div>
+
+    <!-- show.js を読み込む -->
+    <script type="module" src="{{ mix('resources/js/show.js') }}"></script>
+
 </x-app-layout>

@@ -65,4 +65,8 @@
         </form>
     </div>
 
+    <!-- create.js を読み込む -->
+    <script type="module" src="{{ mix('resources/js/create.js') }}"></script>
+
+
 </x-app-layout>
