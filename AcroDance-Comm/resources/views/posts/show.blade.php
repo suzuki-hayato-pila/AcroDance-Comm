@@ -58,6 +58,28 @@
         </div>
     </div>
 
+        <!-- 編集・削除ボタン（ログインユーザーの投稿のみ表示） -->
+        @if (auth()->check() && auth()->id() === $post->user_id)
+        <div class="flex justify-end mt-4 space-x-2">
+            <!-- 編集ボタン -->
+            <a href="{{ route('posts.edit', $post->id) }}"
+                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                編集
+            </a>
+
+            <!-- 削除ボタン -->
+            <form method="POST" action="{{ route('posts.destroy', $post->id) }}"
+                    onsubmit="return confirm('本当に削除しても大丈夫ですか？');">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                    削除
+                </button>
+            </form>
+        </div>
+    @endif
+
     <!-- show.js を読み込む -->
     <script type="module" src="{{ mix('resources/js/show.js') }}"></script>
 

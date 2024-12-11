@@ -111,6 +111,55 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
+    // 編集、削除機能の処理
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿以外は403エラー
+        if ($post->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿以外は403エラー
+        if ($post->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $post->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿以外は403エラー
+        if ($post->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('status', '投稿を削除しました。');
+    }
+
 }
 
 
