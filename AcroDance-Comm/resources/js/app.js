@@ -1,9 +1,9 @@
-// import "./bootstrap";
-// import Alpine from "alpinejs";
+import "./bootstrap";
+import Alpine from "alpinejs";
 // import { Loader } from "@googlemaps/js-api-loader";
 
-// window.Alpine = Alpine;
-// Alpine.start();
+window.Alpine = Alpine;
+Alpine.start();
 
 // const loader = new Loader({
 //     apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // APIキーを.envから読み込み

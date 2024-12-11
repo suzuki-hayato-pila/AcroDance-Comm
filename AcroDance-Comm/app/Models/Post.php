@@ -20,7 +20,7 @@ class Post extends Model
     ];
 
     // 関連データのEager Loadingを有効化
-    protected $with = ['mapInfo'];
+    // protected $with = ['mapInfo'];
 
     // ユーザーとの関連付け (1対多の逆関係)
     public function user()
