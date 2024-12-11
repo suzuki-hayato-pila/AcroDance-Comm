@@ -34,7 +34,7 @@ Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
     Route::post('/', [PostController::class, 'store'])->name('store');
     Route::get('/{id}', [PostController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit'); // 編集
-    Route::put('/{id}', [PostController::class, 'update'])->name('update'); // 更新
+    Route::patch('/{id}', [PostController::class, 'update'])->name('update'); // 更新
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy'); // 削除
 });
 
