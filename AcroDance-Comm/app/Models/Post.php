@@ -19,7 +19,7 @@ class Post extends Model
         'user_id',
     ];
 
-    // 関連データのEager Loadingを有効化
+    // 一時的にリレーションの自動ロードを無効化
     // protected $with = ['mapInfo'];
 
     // ユーザーとの関連付け (1対多の逆関係)

@@ -28,8 +28,19 @@
             <p class="text-gray-700">活動場所: {{ $post->location_name }}</p>
         </div>
 
+        {{-- <!-- デバッグ情報 -->
+        <pre>
+            {{ print_r($post->mapInfo) }}
+        </pre> --}}
+
         <!-- 地図表示部分 -->
-        <div id="map" class="w-full h-64 my-6"></div>
+        <div id="map" class="w-full h-64 my-6"
+            class="w-full h-64 my-6"
+            data-latitude="{{ $post->mapInfo->latitude ?? '0' }}"
+            data-longitude="{{ $post->mapInfo->longitude ?? '0' }}"
+            data-location-name="{{ $post->mapInfo->activity_location ?? '不明な場所' }}"
+        ></div>
+        {{-- <pre>{{ print_r($post->mapInfo) }}</pre> --}}
 
         <!-- 活動場所の名前 -->
         <div class="bg-gray-100 p-4 rounded-md">
