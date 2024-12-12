@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 // ホームページ
@@ -42,6 +43,11 @@ Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
 Route::get('/search', function () {
     return view('search.search');
 })->name('search');
+
+// google認証
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
 
 // 認証に関するルート
 require __DIR__ . '/auth.php';
