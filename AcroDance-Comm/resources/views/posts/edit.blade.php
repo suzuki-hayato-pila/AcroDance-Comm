@@ -1,30 +1,80 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6">
-        <form method="POST" action="{{ route('posts.update', $post->id) }}">
+    <div class="max-w-7xl mx-auto p-6 space-y-6 pb-24" >
+        <!-- タイトル -->
+        <div class="bg-gray-200 p-4 rounded-md shadow-md">
+            <h1 class="text-2xl font-bold">編集画面</h1>
+        </div>
+
+        <!-- 編集フォーム -->
+        <form method="POST" action="{{ route('posts.update', $post->id) }}" class="space-y-4">
             @csrf
-            @method('PUT')
+            @method('PATCH')
 
-            <!-- 投稿タイトル -->
-            <div class="mb-4">
-                <label for="title" class="block text-gray-700 font-bold">タイトル</label>
-                <input type="text" id="title" name="title" value="{{ old('title', $post->title) }}"
-                       class="w-full p-2 border border-gray-300 rounded-md">
+            <!-- タイトル -->
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">タイトル</label>
+                <input type="text" name="title" id="title" value="{{ $post->title }}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             </div>
 
-            <!-- 投稿内容 -->
-            <div class="mb-4">
-                <label for="content" class="block text-gray-700 font-bold">内容</label>
-                <textarea id="content" name="content" rows="4"
-                          class="w-full p-2 border border-gray-300 rounded-md">{{ old('content', $post->content) }}</textarea>
+            <!-- 内容 -->
+            <div>
+                <label for="content" class="block text-sm font-medium text-gray-700">内容</label>
+                <textarea name="content" id="content" rows="4"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ $post->content }}</textarea>
             </div>
 
-            <!-- 編集完了ボタン -->
-            <div class="text-right">
+            <!-- 活動場所 -->
+            <div>
+                <label for="location_name" class="block text-sm font-medium text-gray-700">活動場所</label>
+                <input type="text" name="location_name" id="location_name" value="{{ $post->location_name }}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <button type="button" id="search-location"
+                    class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                    住所を検索
+                </button>
+            </div>
+
+            <!-- 地図 -->
+            <div id="map" class="w-full h-64 rounded-md shadow-md"
+                data-latitude="{{ $post->mapInfo->latitude ?? '35.6895' }}"
+                data-longitude="{{ $post->mapInfo->longitude ?? '139.6917' }}"
+                data-location-name="{{ $post->mapInfo->activity_location ?? '不明な場所' }}">
+            </div>
+
+            <!-- 希望性別 -->
+            <div>
+                <label for="preferred_gender" class="block text-sm font-medium text-gray-700">希望性別</label>
+                <select name="preferred_gender" id="preferred_gender"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="指定なし" {{ $post->preferred_gender === '指定なし' ? 'selected' : '' }}>指定なし</option>
+                    <option value="男性" {{ $post->preferred_gender === '男性' ? 'selected' : '' }}>男性</option>
+                    <option value="女性" {{ $post->preferred_gender === '女性' ? 'selected' : '' }}>女性</option>
+                </select>
+            </div>
+
+            <!-- 希望人数 -->
+            <div>
+                <label for="preferred_group_size" class="block text-sm font-medium text-gray-700">希望人数</label>
+                <select name="preferred_group_size" id="preferred_group_size"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="指定なし" {{ $post->preferred_group_size === '指定なし' ? 'selected' : '' }}>指定なし</option>
+                    <option value="1人" {{ $post->preferred_group_size === '1人' ? 'selected' : '' }}>1人</option>
+                    <option value="2人" {{ $post->preferred_group_size === '2人' ? 'selected' : '' }}>2人</option>
+                    <option value="3人" {{ $post->preferred_group_size === '3人' ? 'selected' : '' }}>3人</option>
+                </select>
+            </div>
+
+            <!-- 保存ボタン -->
+            <div class="text-center">
                 <button type="submit"
-                        class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                    編集完了
+                    class="px-4 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700">
+                    保存する
                 </button>
             </div>
         </form>
     </div>
+
+    <!-- Google Maps JavaScript -->
+    <script type="module" src="{{ mix('resources/js/edit.js') }}"></script>
 </x-app-layout>

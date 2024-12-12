@@ -3,10 +3,17 @@
         <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
             <h2 class="text-center text-2xl font-bold mb-6">ログイン</h2>
 
-            <!-- Instagram Login Button -->
+            {{-- <!-- Instagram Login Button -->
             <div class="mb-6">
                 <a href="#" class="block w-full text-center bg-black text-white py-2 rounded-lg hover:bg-gray-800">
                     インスタグラムで登録・ログイン
+                </a>
+            </div> --}}
+
+            <!-- Google Login Button -->
+            <div class="mb-6">
+                <a href="{{ route('google.redirect') }}" class="block w-full text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                    Googleで登録・ログイン
                 </a>
             </div>
 
