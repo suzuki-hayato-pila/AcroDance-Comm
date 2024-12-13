@@ -160,11 +160,57 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('status', '投稿を削除しました。');
     }
 
-    public function search()
+    // 検索ボックスなし
+    // public function search()
+    // {
+    //     $posts = Post::orderBy('id', 'desc')->paginate(10);
+    //     return view('search.search', compact('posts'));
+    // }
+
+    // 検索ボックスあり
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
+
+    //     // 検索クエリがあればフィルタリング
+    //     $query = Post::query();
+    //     if (!empty($keyword)) {
+    //         $query->where('title', 'LIKE', "%{$keyword}%")
+    //             ->orWhere('content', 'LIKE', "%{$keyword}%")
+    //             ->orWhere('location_name', 'LIKE', "%{$keyword}%");
+    //     }
+
+    //     // 結果を取得（ページネーション付き）
+    //     $posts = $query->orderBy('id', 'desc')->paginate(10);
+
+    //     return view('search.search', compact('posts'));
+    // }
+
+    public function search(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('search.search', compact('posts'));
+        $keyword = $request->input('keyword');
+
+        // クエリビルダーの初期化
+        $query = Post::query();
+
+        // キーワード検索がある場合
+        if (!empty($keyword)) {
+            $query->where('title', 'LIKE', "%{$keyword}%")
+                  ->orWhere('content', 'LIKE', "%{$keyword}%")
+                  ->orWhere('location_name', 'LIKE', "%{$keyword}%");
+        } else {
+            // キーワードが空の場合は投稿一覧を取得
+            $query->orderBy('id', 'desc');
+        }
+
+        // 結果を取得（ページネーション付き）
+        $posts = $query->paginate(10);
+
+        return view('search.search', compact('posts', 'keyword'));
     }
+
+
+
 
 }
 

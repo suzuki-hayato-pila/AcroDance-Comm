@@ -45,6 +45,11 @@ Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
 // })->name('search');
 Route::get('/search', [PostController::class, 'search'])->name('search');
 
+// リセット用のルート
+Route::get('/search/reset', function () {
+    return redirect()->route('search'); // クエリパラメータをリセット
+})->name('search.reset');
+
 
 
 // google認証
