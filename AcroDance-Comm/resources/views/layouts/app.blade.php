@@ -11,11 +11,11 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-blue-100">
         <!-- 上部ナビゲーション -->
         <x-header />
         <!-- 全体のコンテナ -->
-        <div class="flex flex-col min-h-screen bg-gray-100">
+        <div class="flex flex-col min-h-screen bg-blue-50">
             <!-- コンテンツ部分 -->
             <main class="flex-grow">
                 {{ $slot }}
@@ -25,6 +25,9 @@
         <x-footer />
     </body>
 </html>
+
+
+
 
 {{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
