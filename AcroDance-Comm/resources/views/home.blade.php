@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="bg-blue-100 max-w-7xl mx-auto px-4 py-6">
-
+    {{-- <div class="mx-auto p-6 bg-white shadow-md rounded-lg"> <!-- max-w-7xl を削除して幅を広げる --> --}}
         <!-- 通知メッセージの表示 -->
         @if (session('status'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6">
@@ -18,7 +18,7 @@
 
             <!-- サイトの使い方 -->
             <div class="bg-white p-6 mt-6 text-center rounded-md">
-                <h3 class="text-xl font-bold mb-4">本サイトの使い方</h3>
+                <h3 class="text-xl font-bold mb-4">本サイトの使い方</h3>＃
                 <p class="text-base text-gray-700 mb-6">
                     本サイトは社会人からダンスやアクロバットを始めたい方が、一緒に練習する仲間探しを手助けするサイトです。
                 </p>
