@@ -160,6 +160,12 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('status', '投稿を削除しました。');
     }
 
+    public function search()
+    {
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('search.search', compact('posts'));
+    }
+
 }
 
 
