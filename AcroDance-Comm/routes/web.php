@@ -39,10 +39,13 @@ Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy'); // 削除
 });
 
-// 検索機能
-Route::get('/search', function () {
-    return view('search.search');
-})->name('search');
+// // 検索機能
+// Route::get('/search', function () {
+//     return view('search.search');
+// })->name('search');
+Route::get('/search', [PostController::class, 'search'])->name('search');
+
+
 
 // google認証
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
