@@ -57,6 +57,12 @@
             <p class="text-gray-700">{{ $post->content }}</p>
         </div>
 
+        <!-- 希望情報 -->
+        <div class="bg-gray-100 p-4 mt-6 rounded-md">
+            <p class="text-gray-700"><strong>希望性別:</strong> {{ $post->preferred_gender ?? '指定なし' }}</p>
+            <p class="text-gray-700"><strong>希望人数:</strong> {{ $post->preferred_group_size ?? '指定なし' }}</p>
+        </div>
+
         <!-- 投稿者情報 -->
         <div class="bg-gray-100 p-4 rounded-md mt-6 flex items-center space-x-4">
             <h3 class="text-lg font-bold">投稿者情報</h3>
@@ -72,12 +78,10 @@
             </div>
         </div>
 
-    </div>
-
-
         <!-- 編集・削除ボタン（ログインユーザーの投稿のみ表示） -->
         @if (auth()->check() && auth()->id() === $post->user_id)
-        <div class="flex justify-end mt-4 space-x-2">
+        {{-- <div class="flex justify-end mt-4 space-x-2"> --}}
+        <div class="bg-gray-100 p-4 rounded-md mt-6 flex items-center space-x-4 mb-20">
             <!-- 編集ボタン -->
             <a href="{{ route('posts.edit', $post->id) }}"
                 class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
@@ -96,6 +100,9 @@
             </form>
         </div>
     @endif
+
+    </div>
+
 
     <!-- show.js を読み込む -->
     <script type="module" src="{{ mix('resources/js/show.js') }}"></script>
