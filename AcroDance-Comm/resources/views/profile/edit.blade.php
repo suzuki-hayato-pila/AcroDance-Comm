@@ -31,13 +31,16 @@
 
 <x-app-layout>
     <div class="flex justify-center items-center h-screen bg-gray-100 overflow-y-auto">
-        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md pb-20 mt-4"> <!-- 余白を追加 -->
+        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md pb-20 mt-290"> <!-- 余白を追加 -->
             <!-- タイトル -->
             <h2 class="text-center text-2xl font-bold mb-6">プロフィール</h2>
 
             <!-- プロフィール情報 -->
             <div class="text-center mb-6">
-                <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-24 h-24 rounded-full mx-auto mb-4">
+                {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-24 h-24 rounded-full mx-auto mb-4"> --}}
+                <img src="{{ $user->profile_photo ? asset('storage/' . $user->profile_photo) : asset('path-to-default-avatar.png') }}"
+                        alt="プロフィール画像"
+                        class="w-24 h-24 rounded-full mx-auto mb-4">
                 <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
                 <p class="text-gray-600">{{ $user->email }}</p>
                 <p class="text-gray-600">Instagram: instagram.com/your-profile</p>

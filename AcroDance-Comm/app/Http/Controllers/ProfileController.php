@@ -78,25 +78,53 @@ class ProfileController extends Controller
     /**
      * Update the user's bio.
      */
+    // public function updateBio(Request $request): RedirectResponse
+    // {
+    //     $request->validate([
+    //         'bio' => 'nullable|string|max:1000', // 自己紹介のバリデーション
+    //     ]);
+
+    //     // デバッグログ: リクエスト内容と現在のbio
+    //     logger()->info('Request Data: ', ['bio' => $request->input('bio')]);
+    //     logger()->info('Before Update Bio: ', ['bio' => $request->user()->bio]);
+
+    //     // bioのデータベース更新
+    //     $request->user()->update([
+    //         'bio' => $request->input('bio'),
+    //     ]);
+
+    //     // デバッグログ: 更新後のbio
+    //     logger()->info('After Update Bio: ', ['bio' => $request->user()->bio]);
+
+    //     return redirect()->route('profile.edit')->with('status', '自己紹介を更新しました。');
+    // }
     public function updateBio(Request $request): RedirectResponse
     {
         $request->validate([
-            'bio' => 'nullable|string|max:1000', // 自己紹介のバリデーション
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'instagram' => 'nullable|string|max:255',
+            'bio' => 'nullable|string|max:1000',
+            'profile_photo' => 'nullable|image|max:2048', // 画像ファイル制限
         ]);
 
-        // デバッグログ: リクエスト内容と現在のbio
-        logger()->info('Request Data: ', ['bio' => $request->input('bio')]);
-        logger()->info('Before Update Bio: ', ['bio' => $request->user()->bio]);
+        $user = $request->user();
 
-        // bioのデータベース更新
-        $request->user()->update([
+        // プロフィール画像のアップロード処理
+        if ($request->hasFile('profile_photo')) {
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            $user->profile_photo = $path;
+        }
+
+        // 他のフィールドを更新
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'instagram' => $request->input('instagram'),
             'bio' => $request->input('bio'),
         ]);
 
-        // デバッグログ: 更新後のbio
-        logger()->info('After Update Bio: ', ['bio' => $request->user()->bio]);
-
-        return redirect()->route('profile.edit')->with('status', '自己紹介を更新しました。');
+        return redirect()->route('profile.edit')->with('status', 'プロフィールを更新しました。');
     }
 
 
