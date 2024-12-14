@@ -43,7 +43,7 @@
                         class="w-24 h-24 rounded-full mx-auto mb-4">
                 <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
                 <p class="text-gray-600">{{ $user->email }}</p>
-                <p class="text-gray-600">Instagram: instagram.com/your-profile</p>
+                <p class="text-gray-600">{{ $user->instagram}}</p>
             </div>
 
             <!-- 編集ボタン -->
