@@ -1,6 +1,6 @@
-<x-guest-layout>
+<x-app-layout>
     <div class="flex justify-center items-center min-h-screen bg-gray-100">
-        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md pb-20 mt-4">
             <h2 class="text-center text-2xl font-bold mb-6">ユーザー登録</h2>
 
             <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="space-y-6">
@@ -71,4 +71,4 @@
             </form>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>
