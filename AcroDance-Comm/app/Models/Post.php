@@ -25,7 +25,7 @@ class Post extends Model
     // ユーザーとの関連付け (1対多の逆関係)
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // MapInfoとの関連付け (1対1)

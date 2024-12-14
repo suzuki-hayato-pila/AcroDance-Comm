@@ -102,7 +102,7 @@ class PostController extends Controller
     public function show($id)
     {
         try {
-            $post = Post::with('mapInfo')->findOrFail($id);
+            $post = Post::with('mapInfo','user')->findOrFail($id); //投稿者情報も取得
         } catch (\Exception $e) {
             Log::error('Post not found: ' . $e->getMessage());
             return redirect()->route('posts.index')->withErrors(['error' => '指定された投稿が見つかりません。']);

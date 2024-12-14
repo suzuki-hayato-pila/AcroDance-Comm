@@ -56,7 +56,24 @@
             <h3 class="text-lg font-bold">内容</h3>
             <p class="text-gray-700">{{ $post->content }}</p>
         </div>
+
+        <!-- 投稿者情報 -->
+        <div class="bg-gray-100 p-4 rounded-md mt-6 flex items-center space-x-4">
+            <h3 class="text-lg font-bold">投稿者情報</h3>
+            {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-16 h-16 rounded-full"> --}}
+            <img src="{{ $post->user->profile_photo ? asset('storage/' . $post->user->profile_photo) : asset('path-to-default-avatar.png') }}"
+                        alt="プロフィール画像"
+                        class="w-24 h-24 rounded-full mx-auto mb-4">
+            <div>
+                <h3 class="text-lg font-semibold">{{ $post->user->name }}</h3>
+                <a href="{{ $post->user->instagram }}" target="_blank" class="text-blue-500 hover:underline">
+                    {{ $post->user->instagram }}
+                </a>
+            </div>
+        </div>
+
     </div>
+
 
         <!-- 編集・削除ボタン（ログインユーザーの投稿のみ表示） -->
         @if (auth()->check() && auth()->id() === $post->user_id)
