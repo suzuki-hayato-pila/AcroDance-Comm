@@ -146,6 +146,49 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
     }
 
+    // public function update(Request $request, $id)
+    // {
+    //     $post = Post::findOrFail($id);
+
+    //     // 自分の投稿以外は403エラー
+    //     if ($post->user_id !== auth()->id()) {
+    //         abort(403, 'Unauthorized action.');
+    //     }
+
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //         'location_name' => 'required|string|max:255',
+    //         'latitude' => 'required|numeric',
+    //         'longitude' => 'required|numeric',
+    //         'preferred_gender' => 'nullable|string',
+    //         'preferred_group_size' => 'nullable|string',
+    //     ]);
+
+    //     // 投稿データを更新
+    //     $post->update([
+    //         'title' => $request->input('title'),
+    //         'content' => $request->input('content'),
+    //         'location_name' => $request->input('location_name'),
+    //         'preferred_gender' => $request->input('preferred_gender'),
+    //         'preferred_group_size' => $request->input('preferred_group_size'),
+    //     ]);
+
+    //     // 関連する地図情報を更新
+    //     $mapInfo = $post->mapInfo;
+    //     dd($mapInfo); // mapInfoがnullの場合、リレーションやデータを確認する必要あり
+    //     if ($mapInfo) {
+    //         $mapInfo->update([
+    //             'activity_location' => $request->input('location_name'),
+    //             'latitude' => $request->input('latitude'),
+    //             'longitude' => $request->input('longitude'),
+    //         ]);
+    //     }
+
+    //     return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
+    // }
+
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
