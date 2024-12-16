@@ -13,30 +13,8 @@ class PostController extends Controller
     // 投稿一覧を表示
     public function index()
     {
-        // return view('コメント');
-        // $posts = Post::orderBy('id', 'desc')->get(); // id カラムで並び替え
-        // // ページネーションを適用（1ページあたり10件のデータ）
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        // $posts = Post::with('mapInfo')->orderBy('id', 'desc')->paginate(10);
-        // $posts = MapInfo::orderBy('post_id', 'desc')->get();
-
-        // // デバッグログで確認
-        // Log::info('Index method with pagination', ['page' => request('page', 1), 'total' => $posts->total()]);
-        // Log::info('Posts fetched successfully', ['posts' => $posts->toArray()]);
-        // Log::info('Index method: Fetched posts', ['posts' => $posts->toArray()]);
-
-        // return view('posts.index', compact('posts'));
-        // Log::info('Index method: Start fetching posts');
-        // try {
-        //     $posts = Post::orderBy('id', 'desc')->paginate(10);
-        //     Log::info('Index method: Posts fetched successfully');
             return view('posts.index', compact('posts'));
-        // } catch (\Exception $e) {
-        //     Log::error('Error in posts.index view: ' . $e->getMessage());
-        //     return "Error: " . $e->getMessage();
-        // }
-        // $posts = Post::orderBy('id', 'desc')->paginate(10);
-        // dd($posts->items()); // ページ内のアイテムのみダンプ
     }
 
     // 投稿フォームを表示
@@ -103,6 +81,7 @@ class PostController extends Controller
     {
         try {
             $post = Post::with('mapInfo','user')->findOrFail($id); //投稿者情報も取得
+            // dd($post->mapInfo); // mapInfoが取得できるか確認
         } catch (\Exception $e) {
             Log::error('Post not found: ' . $e->getMessage());
             return redirect()->route('posts.index')->withErrors(['error' => '指定された投稿が見つかりません。']);
@@ -124,9 +103,11 @@ class PostController extends Controller
         return view('posts.edit', compact('post'));
     }
 
+
     public function update(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
+        $post = Post::with('mapInfo')->findOrFail($id);
 
         // 自分の投稿以外は403エラー
         if ($post->user_id !== auth()->id()) {
@@ -136,17 +117,63 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'location_name' => 'required|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'preferred_gender' => 'nullable|string',
+            'preferred_group_size' => 'nullable|string',
         ]);
 
+        // 投稿データを更新
         $post->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
+            'location_name' => $request->input('location_name'),
+            'preferred_gender' => $request->input('preferred_gender'),
+            'preferred_group_size' => $request->input('preferred_group_size'),
         ]);
+
+        // 関連する地図情報を更新
+        $mapInfo = $post->mapInfo;
+        // dd($mapInfo); // mapInfoがnullの場合、リレーションやデータを確認する必要あり
+        if ($mapInfo) {
+            $mapInfo->update([
+                'activity_location' => $request->input('location_name'),
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+            ]);
+        } else {
+            // MapInfoが存在しない場合、新規作成
+            MapInfo::create([
+                'post_id' => $post->id,
+                'activity_location' => $request->input('location_name'),
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+            ]);
+        }
+
+        // if ($mapInfo) {
+        //     // 手動でフィールドを更新
+        //     $mapInfo->activity_location = $request->input('location_name');
+        //     $mapInfo->latitude = $request->input('latitude');
+        //     $mapInfo->longitude = $request->input('longitude');
+        //     $mapInfo->save(); // 明示的に保存
+        // } else {
+        //     // MapInfoが存在しない場合、新規作成
+        //     MapInfo::create([
+        //         'post_id' => $post->id,
+        //         'activity_location' => $request->input('location_name'),
+        //         'latitude' => $request->input('latitude'),
+        //         'longitude' => $request->input('longitude'),
+        //     ]);
+        // }
+
+        Log::info('MapInfo updated successfully or created', ['post_id' => $post->id]);
 
         return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
     }
 
-    // public function update(Request $request, $id)
+        // public function update(Request $request, $id)
     // {
     //     $post = Post::findOrFail($id);
 
@@ -158,35 +185,16 @@ class PostController extends Controller
     //     $request->validate([
     //         'title' => 'required|string|max:255',
     //         'content' => 'required|string',
-    //         'location_name' => 'required|string|max:255',
-    //         'latitude' => 'required|numeric',
-    //         'longitude' => 'required|numeric',
-    //         'preferred_gender' => 'nullable|string',
-    //         'preferred_group_size' => 'nullable|string',
     //     ]);
 
-    //     // 投稿データを更新
     //     $post->update([
     //         'title' => $request->input('title'),
     //         'content' => $request->input('content'),
-    //         'location_name' => $request->input('location_name'),
-    //         'preferred_gender' => $request->input('preferred_gender'),
-    //         'preferred_group_size' => $request->input('preferred_group_size'),
     //     ]);
-
-    //     // 関連する地図情報を更新
-    //     $mapInfo = $post->mapInfo;
-    //     dd($mapInfo); // mapInfoがnullの場合、リレーションやデータを確認する必要あり
-    //     if ($mapInfo) {
-    //         $mapInfo->update([
-    //             'activity_location' => $request->input('location_name'),
-    //             'latitude' => $request->input('latitude'),
-    //             'longitude' => $request->input('longitude'),
-    //         ]);
-    //     }
 
     //     return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
     // }
+
 
 
     public function destroy($id)
@@ -202,6 +210,32 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('status', '投稿を削除しました。');
     }
+
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        // クエリビルダーの初期化
+        $query = Post::query();
+
+        // キーワード検索がある場合
+        if (!empty($keyword)) {
+            $query->where('title', 'LIKE', "%{$keyword}%")
+                  ->orWhere('content', 'LIKE', "%{$keyword}%")
+                  ->orWhere('location_name', 'LIKE', "%{$keyword}%");
+        } else {
+            // キーワードが空の場合は投稿一覧を取得
+            $query->orderBy('id', 'desc');
+        }
+
+        // 結果を取得（ページネーション付き）
+        $posts = $query->paginate(10);
+
+        return view('search.search', compact('posts', 'keyword'));
+    }
+
+}
 
     // 検索ボックスなし
     // public function search()
@@ -228,34 +262,6 @@ class PostController extends Controller
 
     //     return view('search.search', compact('posts'));
     // }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-
-        // クエリビルダーの初期化
-        $query = Post::query();
-
-        // キーワード検索がある場合
-        if (!empty($keyword)) {
-            $query->where('title', 'LIKE', "%{$keyword}%")
-                  ->orWhere('content', 'LIKE', "%{$keyword}%")
-                  ->orWhere('location_name', 'LIKE', "%{$keyword}%");
-        } else {
-            // キーワードが空の場合は投稿一覧を取得
-            $query->orderBy('id', 'desc');
-        }
-
-        // 結果を取得（ページネーション付き）
-        $posts = $query->paginate(10);
-
-        return view('search.search', compact('posts', 'keyword'));
-    }
-
-
-
-
-}
 
 
 
@@ -309,4 +315,33 @@ class PostController extends Controller
         //     DB::rollBack();
         //     Log::error('Error while creating post: ' . $e->getMessage());
         //     return redirect()->back()->withErrors(['error' => '投稿の保存中に問題が発生しました。']);
+        // }
+
+
+        // public function index()
+        // {
+            // return view('コメント');
+            // $posts = Post::orderBy('id', 'desc')->get(); // id カラムで並び替え
+            // // ページネーションを適用（1ページあたり10件のデータ）
+            // $posts = Post::orderBy('id', 'desc')->paginate(10);
+            // $posts = Post::with('mapInfo')->orderBy('id', 'desc')->paginate(10);
+            // $posts = MapInfo::orderBy('post_id', 'desc')->get();
+
+            // // デバッグログで確認
+            // Log::info('Index method with pagination', ['page' => request('page', 1), 'total' => $posts->total()]);
+            // Log::info('Posts fetched successfully', ['posts' => $posts->toArray()]);
+            // Log::info('Index method: Fetched posts', ['posts' => $posts->toArray()]);
+
+            // return view('posts.index', compact('posts'));
+            // Log::info('Index method: Start fetching posts');
+            // try {
+            //     $posts = Post::orderBy('id', 'desc')->paginate(10);
+            //     Log::info('Index method: Posts fetched successfully');
+                // return view('posts.index', compact('posts'));
+            // } catch (\Exception $e) {
+            //     Log::error('Error in posts.index view: ' . $e->getMessage());
+            //     return "Error: " . $e->getMessage();
+            // }
+            // $posts = Post::orderBy('id', 'desc')->paginate(10);
+            // dd($posts->items()); // ページ内のアイテムのみダンプ
         // }

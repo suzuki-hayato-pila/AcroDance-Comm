@@ -18,7 +18,8 @@
 
             <!-- イラストの追加 -->
             <div class="flex justify-center mt-6">
-                <img src="/images/27666679_7370878.png" alt="ダンスとアクロバットのシルエット" class="w-full max-w-md rounded-md shadow-md">
+                {{-- <img src="/images/27666679_7370878.png" alt="ダンスとアクロバットのシルエット" class="w-full max-w-md rounded-md shadow-md"> --}}
+                <img src="/images/dynamic-portrait-young-man-woman-dancing-hiphop-isolated-black-background-with-mixed-lights-effect.jpg" alt="ダンスとアクロバットのシルエット" class="w-full max-w-md rounded-md shadow-md">
             </div>
 
 
