@@ -9,20 +9,20 @@
                     インスタグラムで登録・ログイン
                 </a>
             </div> --}}
-
+{{--
             <!-- Google Login Button -->
             <div class="mb-6">
                 <a href="{{ route('google.redirect') }}" class="block w-full text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
                     Googleで登録・ログイン
                 </a>
-            </div>
+            </div> --}}
 
-            <!-- Divider -->
+            {{-- <!-- Divider -->
             <div class="flex items-center my-4">
                 <div class="border-t w-full"></div>
                 <span class="mx-4 text-gray-500 text-sm">もしくは</span>
                 <div class="border-t w-full"></div>
-            </div>
+            </div> --}}
 
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
