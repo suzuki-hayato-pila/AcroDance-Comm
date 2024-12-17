@@ -7,6 +7,7 @@ use App\Models\MapInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -172,6 +173,69 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
     }
+
+    // public function update(Request $request, $id)
+    // {
+    //     // 投稿を取得
+    //     $post = Post::with('mapInfo')->findOrFail($id);
+
+    //     // 自分の投稿以外は403エラー
+    //     if ($post->user_id !== auth()->id()) {
+    //         abort(403, 'Unauthorized action.');
+    //     }
+
+    //     // バリデーション
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'content' => 'required|string',
+    //         'location_name' => 'required|string|max:255',
+    //         'latitude' => 'required|numeric',
+    //         'longitude' => 'required|numeric',
+    //         'preferred_gender' => 'nullable|string',
+    //         'preferred_group_size' => 'nullable|string',
+    //     ]);
+
+    //     DB::beginTransaction(); // トランザクション開始
+
+    //     try {
+    //         // 投稿データを更新
+    //         $post->fill([
+    //             'title' => $request->input('title'),
+    //             'content' => $request->input('content'),
+    //             'location_name' => $request->input('location_name'),
+    //             'preferred_gender' => $request->input('preferred_gender'),
+    //             'preferred_group_size' => $request->input('preferred_group_size'),
+    //         ]);
+
+    //         $post->save(); // 明示的に保存
+
+    //         // 関連する地図情報を更新または作成
+    //         if ($post->mapInfo) {
+    //             $post->mapInfo->activity_location = $request->input('location_name');
+    //             $post->mapInfo->latitude = $request->input('latitude');
+    //             $post->mapInfo->longitude = $request->input('longitude');
+    //             $post->mapInfo->save(); // 強制的に保存
+    //         } else {
+    //             MapInfo::create([
+    //                 'post_id' => $post->id,
+    //                 'activity_location' => $request->input('location_name'),
+    //                 'latitude' => $request->input('latitude'),
+    //                 'longitude' => $request->input('longitude'),
+    //             ]);
+    //         }
+
+    //         DB::commit(); // トランザクションをコミット
+
+    //         Log::info('Post and MapInfo updated successfully', ['post_id' => $post->id]);
+
+    //         return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
+    //     } catch (\Exception $e) {
+    //         DB::rollBack(); // トランザクションをロールバック
+    //         Log::error('Error updating post or mapInfo: ' . $e->getMessage());
+
+    //         return redirect()->back()->withErrors(['error' => '更新中にエラーが発生しました。']);
+    //     }
+    // }
 
         // public function update(Request $request, $id)
     // {
