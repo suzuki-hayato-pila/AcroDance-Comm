@@ -153,6 +153,11 @@ class PostController extends Controller
             ]);
         }
 
+        Log::info('MapInfo updated successfully or created', ['post_id' => $post->id]);
+
+        return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
+    }
+
         // if ($mapInfo) {
         //     // 手動でフィールドを更新
         //     $mapInfo->activity_location = $request->input('location_name');
@@ -168,11 +173,6 @@ class PostController extends Controller
         //         'longitude' => $request->input('longitude'),
         //     ]);
         // }
-
-        Log::info('MapInfo updated successfully or created', ['post_id' => $post->id]);
-
-        return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
-    }
 
     // public function update(Request $request, $id)
     // {
@@ -258,6 +258,8 @@ class PostController extends Controller
 
     //     return redirect()->route('posts.show', $post->id)->with('status', '投稿を更新しました。');
     // }
+
+
 
 
 
