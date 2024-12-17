@@ -42,7 +42,11 @@
                 data-location-name="{{ $post->mapInfo->activity_location ?? '不明な場所' }}">
             </div>
 
-            <!-- 希望性別 -->
+            <input type="hidden" id="latitude" name="latitude" value="{{ $post->mapInfo->latitude ?? '' }}">
+            <input type="hidden" id="longitude" name="longitude" value="{{ $post->mapInfo->longitude ?? '' }}">
+
+
+            {{-- <!-- 希望性別 -->
             <div>
                 <label for="preferred_gender" class="block text-sm font-medium text-gray-700">希望性別</label>
                 <select name="preferred_gender" id="preferred_gender"
@@ -51,9 +55,21 @@
                     <option value="男性" {{ $post->preferred_gender === '男性' ? 'selected' : '' }}>男性</option>
                     <option value="女性" {{ $post->preferred_gender === '女性' ? 'selected' : '' }}>女性</option>
                 </select>
+            </div> --}}
+
+            <!-- 希望性別 -->
+            <div>
+                <label for="preferred_gender" class="block text-sm font-medium text-gray-700">希望性別</label>
+                <select name="preferred_gender" id="preferred_gender"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="指定なし" {{ $post->preferred_gender === '指定なし' ? 'selected' : '' }}>指定なし</option>
+                    <option value="male" {{ $post->preferred_gender === 'male' ? 'selected' : '' }}>男性</option>
+                    <option value="female" {{ $post->preferred_gender === 'female' ? 'selected' : '' }}>女性</option>
+                </select>
             </div>
 
-            <!-- 希望人数 -->
+
+            {{-- <!-- 希望人数 -->
             <div>
                 <label for="preferred_group_size" class="block text-sm font-medium text-gray-700">希望人数</label>
                 <select name="preferred_group_size" id="preferred_group_size"
@@ -62,6 +78,18 @@
                     <option value="1人" {{ $post->preferred_group_size === '1人' ? 'selected' : '' }}>1人</option>
                     <option value="2人" {{ $post->preferred_group_size === '2人' ? 'selected' : '' }}>2人</option>
                     <option value="3人" {{ $post->preferred_group_size === '3人' ? 'selected' : '' }}>3人</option>
+                </select>
+            </div> --}}
+
+            <!-- 希望人数 -->
+            <div>
+                <label for="preferred_group_size" class="block text-sm font-medium text-gray-700">希望人数</label>
+                <select name="preferred_group_size" id="preferred_group_size"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="指定なし" {{ $post->preferred_group_size === '指定なし' ? 'selected' : '' }}>指定なし</option>
+                    <option value="one" {{ $post->preferred_group_size === 'one' ? 'selected' : '' }}>1人</option>
+                    <option value="two" {{ $post->preferred_group_size === 'two' ? 'selected' : '' }}>2人</option>
+                    <option value="three" {{ $post->preferred_group_size === 'three' ? 'selected' : '' }}>3人</option>
                 </select>
             </div>
 
