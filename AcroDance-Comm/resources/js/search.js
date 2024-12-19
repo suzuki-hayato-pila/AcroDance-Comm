@@ -32,7 +32,10 @@ loader.load().then(() => {
         // Google Mapsを初期化
         const map = new google.maps.Map(mapElement, {
             center: { lat: latitude, lng: longitude },
-            zoom: 15,
+            zoom: 13,
+            disableDefaultUI: true, // デフォルトUIを無効化
+            gestureHandling: "none", // ユーザーの操作を無効化
+            zoomControl: false, // ズームボタンを非表示
         });
 
         // マーカーを設定
