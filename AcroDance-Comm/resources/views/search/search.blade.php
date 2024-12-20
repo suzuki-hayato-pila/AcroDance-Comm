@@ -88,10 +88,13 @@
 
 
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6 pb-20">
+    <div class="max-w-7xl mx-auto p-6 pb-20 bg-blue-100">
         <!-- 検索フォーム -->
-        <h1 class="text-xl font-bold mb-4">検索ページ</h1>
-        <form method="GET" action="{{ route('search') }}" class="mb-6 flex space-x-4">
+        <div class="bg-gray-200 p-4 rounded-md shadow-md">
+            <h1 class="text-3xl font-bold text-center">投稿一覧</h1>
+        </div>
+
+        <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex space-x-4">
             <div class="flex-grow">
                 <!-- キーワード入力 -->
                 <input
@@ -124,10 +127,10 @@
         <h2 class="text-2xl font-bold mb-4">検索結果</h2>
         @if ($posts->isNotEmpty())
             @foreach ($posts as $post)
-                <div class="flex items-start border-b py-4">
+                <div class="flex items-start border-b border-gray-900 py-4 bg-gray-100">
                     <!-- 地図サムネイル -->
                     @if ($post->mapInfo)
-                    <div class="w-24 h-24 mr-4">
+                    <div class="flex-shrink-0 w-24 h-24 mr-4">
                         <div
                             id="map-thumbnail-{{ $post->id }}"
                             class="w-full h-full rounded-md"
@@ -138,10 +141,10 @@
                     @endif
 
                     <div>
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-lg font-semibold text-blue-500 hover:underline">
+                        <a href="{{ route('posts.show', $post->id) }}" class="text-lg font-semibold text-blue-900 hover:underline">
                             {{ $post->title }}
                         </a>
-                        <p class="text-gray-600">{{ $post->content }}</p>
+                        <p class="text-gray-900">{{ $post->content }}</p>
                         <p class="text-gray-500">活動場所: {{ $post->location_name }}</p>
                     </div>
                 </div>

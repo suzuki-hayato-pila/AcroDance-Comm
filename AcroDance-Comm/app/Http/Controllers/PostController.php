@@ -74,7 +74,7 @@ class PostController extends Controller
 
             Log::info('Post created successfully', ['post_id' => $post->id]);
 
-            return redirect()->route('posts.index')->with('success', '投稿が完了しました！');
+            return redirect()->route('search')->with('success', '投稿が完了しました！');
         } catch (\Exception $e) {
             Log::error('Error while storing post: ' . $e->getMessage());
 
@@ -179,7 +179,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('posts.index')->with('status', '投稿を削除しました。');
+        return redirect()->route('search')->with('status', '投稿を削除しました。');
     }
 
 

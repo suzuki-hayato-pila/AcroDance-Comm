@@ -30,10 +30,10 @@
 
 
 <x-app-layout>
-    <div class="flex justify-center items-center h-screen bg-gray-100 overflow-y-auto">
-        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md pb-20 mt-290"> <!-- 余白を追加 -->
+    <div class="flex justify-center items-center h-screen bg-blue-100 overflow-y-auto">
+        <div class="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-md pb-20 mt-290"> <!-- 余白を追加 -->
             <!-- タイトル -->
-            <h2 class="text-center text-2xl font-bold mb-6">プロフィール</h2>
+            <h2 class="text-center text-3xl font-bold mb-6">プロフィール</h2>
 
             <!-- プロフィール情報 -->
             <div class="text-center mb-6">
@@ -54,9 +54,9 @@
             </div>
 
             <!-- 自己紹介 -->
-            <div class="bg-gray-100 p-4 rounded-md mb-6">
+            <div class="bg-white p-4 rounded-md mb-6">
                 <h3 class="text-lg font-semibold">自己紹介</h3>
-                <p class="text-gray-600">
+                <p class="text-gray-800">
                     {{ $user->bio ?: '自己紹介がまだありません。編集ボタンから追加してください。' }}
                 </p>
             </div>
@@ -68,8 +68,8 @@
                     {{-- <li class="bg-gray-200 p-2 rounded-md">バク転練習メンバー募集</li>
                     <li class="bg-gray-200 p-2 rounded-md">ヒップホップ練習しませんか？</li> --}}
                     @foreach ($posts as $post)
-                    <li class="bg-gray-200 p-2 rounded-md">
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-blue-500 hover:underline">
+                    <li class="bg-white p-2 font-bold rounded-md">
+                        <a href="{{ route('posts.show', $post->id) }}" class="text-blue-900 hover:underline">
                             {{ $post->title }}
                         </a>
                     </li>
