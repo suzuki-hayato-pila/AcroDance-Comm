@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6 space-y-6 pb-24" >
+    <div class="max-w-7xl mx-auto p-6 space-y-6 pb-24 bg-blue-100" >
         <!-- タイトル -->
         <div class="bg-gray-200 p-4 rounded-md shadow-md">
-            <h1 class="text-2xl font-bold">編集画面</h1>
+            <h1 class="text-3xl font-bold text-center">編集画面</h1>
         </div>
 
         <!-- 編集フォーム -->
@@ -96,7 +96,7 @@
             <!-- 保存ボタン -->
             <div class="text-center">
                 <button type="submit"
-                    class="px-4 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700">
+                    class="px-4 py-2 font-bold bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
                     保存する
                 </button>
             </div>

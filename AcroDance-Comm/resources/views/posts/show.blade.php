@@ -21,10 +21,10 @@
 
 
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="max-w-7xl mx-auto p-6 bg-blue-100">
         <!-- 上部タイトル部分 -->
-        <div class="bg-gray-200 p-4 rounded-md">
-            <h1 class="text-2xl font-bold">{{ $post->title }}</h1>
+        <div class="bg-gray-100 p-4 rounded-md text-center">
+            <h1 class="text-2xl font-bold text-blue-900">{{ $post->title }}</h1>
             <p class="text-gray-700">活動場所: {{ $post->location_name }}</p>
         </div>
 
@@ -67,14 +67,22 @@
         <div class="bg-gray-100 p-4 rounded-md mt-6 flex items-center space-x-4">
             <h3 class="text-lg font-bold">投稿者情報</h3>
             {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-16 h-16 rounded-full"> --}}
-            <img src="{{ $post->user->profile_photo ? asset('storage/' . $post->user->profile_photo) : asset('path-to-default-avatar.png') }}"
-                        alt="プロフィール画像"
-                        class="w-24 h-24 rounded-full mx-auto mb-4">
+            <div class="relative w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                @if ($post->user->profile_photo)
+                    <img src="{{ asset('storage/' . $post->user->profile_photo) }}" alt="プロフィール画像" class="w-full h-full object-cover">
+                @else
+                    <span class="text-gray-500 text-sm font-semibold">プロフィール画像</span>
+                @endif
+            </div>
             <div>
                 <h3 class="text-lg font-semibold">{{ $post->user->name }}</h3>
                 <a href="{{ $post->user->instagram }}" target="_blank" class="text-blue-500 hover:underline">
                     {{ $post->user->instagram }}
                 </a>
+                <p class="mt-2 text-gray-700">
+                    <strong>自己紹介:</strong>
+                    {{ $post->user->bio ?? '自己紹介がまだありません。' }}
+                </p>
             </div>
         </div>
 

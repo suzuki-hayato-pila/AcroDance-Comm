@@ -33,8 +33,8 @@
 </x-app-layout> --}}
 
 <x-app-layout>
-    <div class="flex justify-center items-center min-h-screen bg-gray-100">
-        <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+    <div class="flex justify-center items-center min-h-screen bg-blue-100">
+        <div class="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-md">
             <h2 class="text-center text-2xl font-bold mb-6">プロフィールを編集</h2>
 
             <form method="POST" action="{{ route('profile.update_bio') }}" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
 
                 <!-- プロフィール画像 -->
                 <div class="mb-4">
-                    <label for="profile_photo" class="block text-sm font-medium text-gray-700">プロフィール画像</label>
+                    <label for="profile_photo" class="block text-sm font-medium text-gray-800">プロフィール画像</label>
                     <input type="file" id="profile_photo" name="profile_photo" class="block w-full border-gray-300 rounded-md shadow-sm">
                     @error('profile_photo')
                         <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -52,7 +52,7 @@
 
                 <!-- 名前 -->
                 <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">名前</label>
+                    <label for="name" class="block text-sm font-medium text-gray-800">名前</label>
                     <input
                         type="text"
                         id="name"
@@ -67,7 +67,7 @@
 
                 <!-- メールアドレス -->
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+                    <label for="email" class="block text-sm font-medium text-gray-800">メールアドレス</label>
                     <input
                         type="email"
                         id="email"
@@ -82,7 +82,7 @@
 
                 <!-- Instagram URL -->
                 <div class="mb-4">
-                    <label for="instagram" class="block text-sm font-medium text-gray-700">Instagram URL</label>
+                    <label for="instagram" class="block text-sm font-medium text-gray-600">Instagram URL</label>
                     <input
                         type="text"
                         id="instagram"
@@ -97,7 +97,7 @@
 
                 <!-- 自己紹介 -->
                 <div class="mb-4">
-                    <label for="bio" class="block text-sm font-medium text-gray-700">自己紹介</label>
+                    <label for="bio" class="block text-sm font-medium text-gray-800">自己紹介</label>
                     <textarea
                         id="bio"
                         name="bio"
