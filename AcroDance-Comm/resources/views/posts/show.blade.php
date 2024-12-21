@@ -57,10 +57,36 @@
             <p class="text-gray-700">{{ $post->content }}</p>
         </div>
 
-        <!-- 希望情報 -->
+        {{-- <!-- 希望情報 -->
         <div class="bg-gray-100 p-4 mt-6 rounded-md">
             <p class="text-gray-700"><strong>希望性別:</strong> {{ $post->preferred_gender ?? '指定なし' }}</p>
             <p class="text-gray-700"><strong>希望人数:</strong> {{ $post->preferred_group_size ?? '指定なし' }}</p>
+        </div> --}}
+
+                <!-- 希望情報 -->
+        <div class="bg-gray-100 p-4 mt-6 rounded-md">
+            <p class="text-gray-700">
+                <strong>希望性別:</strong>
+                @if ($post->preferred_gender === 'male')
+                    男性
+                @elseif ($post->preferred_gender === 'female')
+                    女性
+                @else
+                    指定なし
+                @endif
+            </p>
+            <p class="text-gray-700">
+                <strong>希望人数:</strong>
+                @if ($post->preferred_group_size === 'one')
+                    1人
+                @elseif ($post->preferred_group_size === 'two')
+                    2人
+                @elseif ($post->preferred_group_size === 'three')
+                    3人
+                @else
+                    指定なし
+                @endif
+            </p>
         </div>
 
         <!-- 投稿者情報 -->

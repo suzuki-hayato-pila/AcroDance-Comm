@@ -90,9 +90,9 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-6 pb-20 bg-blue-100">
         <!-- 検索フォーム -->
-        <div class="bg-gray-200 p-4 rounded-md shadow-md">
-            <h1 class="text-3xl font-bold text-center">投稿一覧</h1>
-        </div>
+        {{-- <div class="bg-white p-4 rounded-md shadow-md"> --}}
+            <h1 class="text-3xl font-bold  text-blue-900">投稿一覧</h1>
+        {{-- </div> --}}
 
         <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex space-x-4">
             <div class="flex-grow">

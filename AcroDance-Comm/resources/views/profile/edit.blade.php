@@ -33,7 +33,7 @@
     <div class="flex justify-center items-center h-screen bg-blue-100 overflow-y-auto">
         <div class="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-md pb-20 mt-290"> <!-- 余白を追加 -->
             <!-- タイトル -->
-            <h2 class="text-center text-3xl font-bold mb-6">プロフィール</h2>
+            <h2 class="text-center text-3xl font-bold mb-6 text-blue-900">プロフィール</h2>
 
             <!-- プロフィール情報 -->
             <div class="text-center mb-6">

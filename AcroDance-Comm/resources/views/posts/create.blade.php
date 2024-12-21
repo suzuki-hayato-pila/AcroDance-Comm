@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-6 bg-blue-100 shadow-md rounded-lg">
-        <div class="bg-gray-200 p-4 rounded-md shadow-md">
-            <h1 class="text-3xl font-bold text-center">新規投稿</h1>
-        </div>
+        {{-- <div class="bg-gray-200 p-4 rounded-md shadow-md"> --}}
+            <h1 class="text-3xl font-bold p-4 text-blue-900">新規投稿</h1>
+        {{-- </div> --}}
 
         <form method="POST" action="{{ route('posts.store') }}" id="postForm" class="pb-20">
             @csrf
