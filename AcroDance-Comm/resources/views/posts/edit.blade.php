@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-6 space-y-6 pb-24 bg-blue-100" >
         <!-- タイトル -->
-        <div class="bg-gray-200 p-4 rounded-md shadow-md">
-            <h1 class="text-3xl font-bold text-center">編集画面</h1>
-        </div>
+        {{-- <div class="bg-gray-200 p-4 rounded-md shadow-md"> --}}
+            <h1 class="text-3xl font-bold text-blue-900">編集画面</h1>
+        {{-- </div> --}}
 
         <!-- 編集フォーム -->
         <form method="POST" action="{{ route('posts.update', $post->id) }}" class="space-y-4">
