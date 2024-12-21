@@ -97,7 +97,7 @@
                 @if ($post->user->profile_photo)
                     <img src="{{ asset('storage/' . $post->user->profile_photo) }}" alt="プロフィール画像" class="w-full h-full object-cover">
                 @else
-                    <span class="text-gray-500 text-sm font-semibold">プロフィール画像</span>
+                    <span class="text-center text-gray-500 text-sm font-semibold break-words max-w">プロフィール画像</span>
                 @endif
             </div>
             <div>

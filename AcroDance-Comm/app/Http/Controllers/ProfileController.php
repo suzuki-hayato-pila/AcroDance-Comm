@@ -22,7 +22,7 @@ class ProfileController extends Controller
         // ]);
         $user = $request->user();
         // $posts = Post::where('user_id', $user->id)->get(); // ログインユーザーの投稿を取得
-        $posts = Post::where('user_id', $user->id)->paginate(5); // ページネーションで5件取得
+        $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(5); // ページネーションで5件取得
 
         return view('profile.edit', compact('user', 'posts')); // ビューに渡す
 
@@ -110,8 +110,22 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        // 画像削除処理
+        if ($request->has('delete_photo') && $request->delete_photo) {
+            if ($user->profile_photo && \Storage::exists('public/' . $user->profile_photo)) {
+                \Storage::delete('public/' . $user->profile_photo);
+            }
+            $user->profile_photo = null; // プロフィール画像を削除
+        }
+
         // プロフィール画像のアップロード処理
         if ($request->hasFile('profile_photo')) {
+            // 既存の画像がある場合は削除
+            if ($user->profile_photo && \Storage::exists('public/' . $user->profile_photo)) {
+                \Storage::delete('public/' . $user->profile_photo);
+            }
+
+            // 新しい画像をアップロード
             $path = $request->file('profile_photo')->store('profile_photos', 'public');
             $user->profile_photo = $path;
         }
@@ -123,6 +137,9 @@ class ProfileController extends Controller
             'instagram' => $request->input('instagram'),
             'bio' => $request->input('bio'),
         ]);
+
+        // プロフィール画像の変更を保存
+        $user->save();
 
         return redirect()->route('profile.edit')->with('status', 'プロフィールを更新しました。');
     }

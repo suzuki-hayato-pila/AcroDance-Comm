@@ -31,19 +31,23 @@
 
 <x-app-layout>
     <div class="flex justify-center items-center h-screen bg-blue-100 overflow-y-auto">
-        <div class="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-md pb-20 mt-290"> <!-- 余白を追加 -->
+        <div class="w-full max-w-md bg-gray-100 p-6 rounded-lg shadow-md pb-20 mt-10"> <!-- 余白を調整 -->
             <!-- タイトル -->
             <h2 class="text-center text-3xl font-bold mb-6 text-blue-900">プロフィール</h2>
 
             <!-- プロフィール情報 -->
-            <div class="text-center mb-6">
-                {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-24 h-24 rounded-full mx-auto mb-4"> --}}
-                <img src="{{ $user->profile_photo ? asset('storage/' . $user->profile_photo) : asset('path-to-default-avatar.png') }}"
-                        alt="プロフィール画像"
-                        class="w-24 h-24 rounded-full mx-auto mb-4">
-                <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
+            <div class="flex flex-col items-center mb-6"> <!-- フレックスレイアウトを使用 -->
+                <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                    @if ($user->profile_photo)
+                        <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="プロフィール画像" class="w-full h-full object-cover">
+                    @else
+                        <span class="text-center text-gray-500 text-sm font-semibold break-words max-w">プロフィール画像</span>
+                    @endif
+                </div>
+
+                <h3 class="text-xl font-semibold mt-4">{{ $user->name }}</h3> <!-- マージンを追加 -->
                 <p class="text-gray-600">{{ $user->email }}</p>
-                <p class="text-gray-600">{{ $user->instagram}}</p>
+                <p class="text-gray-600">{{ $user->instagram }}</p>
             </div>
 
             <!-- 編集ボタン -->
@@ -65,23 +69,22 @@
             <div>
                 <h3 class="text-lg font-semibold mb-4">投稿一覧</h3>
                 <ul class="space-y-2">
-                    {{-- <li class="bg-gray-200 p-2 rounded-md">バク転練習メンバー募集</li>
-                    <li class="bg-gray-200 p-2 rounded-md">ヒップホップ練習しませんか？</li> --}}
                     @foreach ($posts as $post)
-                    <li class="bg-white p-2 font-bold rounded-md">
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-blue-900 hover:underline">
-                            {{ $post->title }}
-                        </a>
-                    </li>
-                @endforeach
+                        <li class="bg-white p-2 font-bold rounded-md">
+                            <a href="{{ route('posts.show', $post->id) }}" class="text-blue-900 hover:underline">
+                                {{ $post->title }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
 
-                                <!-- ページネーション -->
-                                <div class="mt-4">
-                                    {{ $posts->links() }}
-                                </div>
+                <!-- ページネーション -->
+                <div class="mt-4">
+                    {{ $posts->links() }}
+                </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+
 

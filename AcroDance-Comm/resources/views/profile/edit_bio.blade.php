@@ -45,6 +45,12 @@
                 <div class="mb-4">
                     <label for="profile_photo" class="block text-sm font-medium text-gray-800">プロフィール画像</label>
                     <input type="file" id="profile_photo" name="profile_photo" class="block w-full border-gray-300 rounded-md shadow-sm">
+                    <div class="mt-2">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" name="delete_photo" value="1" class="form-checkbox">
+                            <span class="ml-2 text-sm text-gray-600">現在の画像を削除</span>
+                        </label>
+                    </div>
                     @error('profile_photo')
                         <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                     @enderror
