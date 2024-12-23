@@ -127,7 +127,7 @@
         <h2 class="text-2xl font-bold mb-4">検索結果</h2>
         @if ($posts->isNotEmpty())
             @foreach ($posts as $post)
-                <div class="flex items-start border-b border-gray-900 py-4 bg-gray-100">
+                <div class="flex items-start border-b border-yellow-900 py-4 bg-gray-100 rounded-md" >
                     <!-- 地図サムネイル -->
                     @if ($post->mapInfo)
                     <div class="flex-shrink-0 w-24 h-24 mr-4">
