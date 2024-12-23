@@ -1,5 +1,5 @@
 # AcroDance-Comm
-＊DM機能を検討中です。デプロイはまだしておりませんので、ローカルで動くのみの状態です。
+デプロイはまだしておりませんので、ローカルで動くのみの状態です。
 ## 概要
 AcroDanceCommは、アクロバットやダンスの練習仲間を見つけることができるアプリケーションです。
 対象ユーザーは20代～30代前半でアクロバットやダンスを始めようと考えている人です。
@@ -31,7 +31,7 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
     - メールアドレスとパスワードの変更
 - **投稿機能**
     - セッションの新規作成と投稿
-    - セッションの閲覧と個別表示
+    - セッションの一覧表示と個別表示
     - セッションの編集と削除
     - セッションの検索
     - 地図機能
@@ -42,24 +42,50 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 ---
 
 以下は、アプリケーションの各画面のスクリーンショットです。
-※デザインは別途修正予定です。
+スマホでの使用をメインと考えたレイアウトになっております。
 ### ホーム画面
 
-<img width="1404" alt="スクリーンショット 2024-12-17 22 48 36" src="https://github.com/user-attachments/assets/4bca8d34-630c-45bb-888f-baeb5853b9d7" />
+<img width="656" alt="スクリーンショット 2024-12-23 14 52 06" src="https://github.com/user-attachments/assets/c74d1298-1ac3-4216-acfb-2611946b9778" />
 
+- メインカラーは青を使用し、ダンスやアクロバットのクールなイメージを再現
+- サブカラーは白を基調とし、補色であるオレンジをアクセントして使用
+- メインメニューは下部に設置。アイコンの付帯と、ホバー時に黄色に変化させる事でUI向上を図った
+  
 ### 新規投稿画面
 
-<img width="1890" alt="スクリーンショット 2024-12-17 22 51 48" src="https://github.com/user-attachments/assets/c07d73e4-056d-4882-b1b0-3133b7407dcf" />
+<img width="651" alt="スクリーンショット 2024-12-23 14 54 00" src="https://github.com/user-attachments/assets/8e342993-075a-4bdf-b15a-4b6f9011cd84" />
+
+- Google Maps APIを導入し、視覚的に活動場所を表現。
+
+### 投稿一覧画面
+
+<img width="655" alt="スクリーンショット 2024-12-23 15 09 17" src="https://github.com/user-attachments/assets/1955ae33-3dc5-46bb-85bb-7d9c5d9c09ee" />
+
+- タイトル画面の横に地図を表示し、サムネイルとしての役割を追加
+
+### 投稿詳細画面
+
+<img width="680" alt="スクリーンショット 2024-12-23 17 00 50" src="https://github.com/user-attachments/assets/05727094-7657-492f-a14a-e04973db2b23" />
+
+- 投稿者の情報を下部に表示。またInstagramのURLをリンクとして表示し、利用者が連絡を取りやすいような導線を意識
 
 ### 投稿編集画面
 
-<img width="1893" alt="スクリーンショット 2024-12-17 22 54 40" src="https://github.com/user-attachments/assets/6edfcfca-9dc6-4166-9d10-ec9d71fffc35" />
-
-### 投稿検索画面
-
-<img width="1887" alt="スクリーンショット 2024-12-17 22 57 52" src="https://github.com/user-attachments/assets/6c9327cb-94d6-49f1-b3a6-8e5f53dfd976" />
+<img width="654" alt="スクリーンショット 2024-12-23 14 58 23" src="https://github.com/user-attachments/assets/8ae1c8fa-7859-434c-922e-d28c2fa6f0a2" />
 
 ### ER図
+<img width="676" alt="スクリーンショット 2024-12-23 16 32 05" src="https://github.com/user-attachments/assets/e5ca904a-3ef0-4fa9-9102-95a1b5c80571" />
 
-<img width="710" alt="スクリーンショット 2024-12-17 23 00 28" src="https://github.com/user-attachments/assets/7b49ecc5-1826-43be-9c13-18a16c856384" />
+### 今後の改善点
+- DM機能を検討中です。
+
+## DM機能追加時のER図
+<img width="700" alt="スクリーンショット 2024-12-23 16 29 36" src="https://github.com/user-attachments/assets/fec72e5c-456a-41cc-bdc6-8a5ca96d4a74" />
+
+## 作者
+- 名前: suzuki-hayatp-pila
+- お問い合わせ: https://www.instagram.com/pila.dan
+
+
+
 
