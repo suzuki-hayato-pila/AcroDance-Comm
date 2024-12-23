@@ -24,8 +24,6 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 
 ## 主要機能
 
----
-
 - **ユーザー機能**
     - ユーザー登録と削除
     - メールアドレスとパスワードの変更
@@ -38,8 +36,6 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
         - Google Maps API
 
 ## **アプリケーションの画面**
-
----
 
 以下は、アプリケーションの各画面のスクリーンショットです。
 スマホでの使用をメインと考えたレイアウトになっております。
@@ -76,15 +72,15 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 ### ER図
 <img width="676" alt="スクリーンショット 2024-12-23 16 32 05" src="https://github.com/user-attachments/assets/e5ca904a-3ef0-4fa9-9102-95a1b5c80571" />
 
-### 今後の改善点
+## 今後の改善点
 - DM機能を検討中です。
 
-## DM機能追加時のER図
+### DM機能追加時のER図
 <img width="700" alt="スクリーンショット 2024-12-23 16 29 36" src="https://github.com/user-attachments/assets/fec72e5c-456a-41cc-bdc6-8a5ca96d4a74" />
 
 ## 作者
 - 名前: suzuki-hayatp-pila
-- お問い合わせ: https://www.instagram.com/pila.dan
+- お問い合わせ: https://x.com/pira_dan
 
 
 
