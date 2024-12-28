@@ -19,6 +19,17 @@ console_command = 'php /var/www/html/artisan tinker'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
+  DB_CONNECTION = "pgsql"
+  DB_HOST = "pgsql"
+  DB_PORT = "5432"
+  DB_DATABASE = "laravel"
+  DB_USERNAME = "sail"
+  DB_PASSWORD = "password"
+  APP_NAME = "Laravel"
+  SESSION_LIFETIME = "120"
+  SESSION_ENCRYPT = "false"
+  SESSION_PATH = "/"
+  SESSION_DOMAIN = "null"
 
 [http_service]
   internal_port = 8080
