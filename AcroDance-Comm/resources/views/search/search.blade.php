@@ -140,8 +140,10 @@
                     </div>
                     @endif
 
-                    <div>
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-lg font-semibold text-blue-900 hover:underline">
+                    <div class="flex-grow overflow-hidden">
+                        <a href="{{ route('posts.show', $post->id) }}"
+                           class="text-lg font-semibold text-blue-900 hover:underline truncate block"
+                           style="white-space: nowrap;">
                             {{ $post->title }}
                         </a>
                         <p class="text-gray-900">{{ $post->content }}</p>
