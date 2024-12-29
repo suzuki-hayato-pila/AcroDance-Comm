@@ -141,14 +141,17 @@
                     @endif
 
                     <div class="flex-grow overflow-hidden">
+                        <!-- タイトル: 最大2行まで表示 -->
                         <a href="{{ route('posts.show', $post->id) }}"
-                           class="text-lg font-semibold text-blue-900 hover:underline truncate block"
-                           style="white-space: nowrap;">
+                           class="text-lg font-semibold text-blue-900 hover:underline block truncate overflow-hidden"
+                           style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal;">
                             {{ $post->title }}
                         </a>
-                        <p class="text-gray-900">{{ $post->content }}</p>
+                        <!-- 投稿内容: 1行にトランケート -->
+                        <p class="text-gray-900 truncate overflow-hidden">{{ $post->content }}</p>
                         <p class="text-gray-500">活動場所: {{ $post->location_name }}</p>
                     </div>
+
                 </div>
             @endforeach
 
