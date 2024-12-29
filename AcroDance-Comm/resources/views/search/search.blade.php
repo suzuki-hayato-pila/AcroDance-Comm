@@ -94,7 +94,7 @@
             <h1 class="text-3xl font-bold  text-blue-900">投稿一覧</h1>
         {{-- </div> --}}
 
-        <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex space-x-4">
+        <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex items-center space-x-2">
             <div class="flex-grow">
                 <!-- キーワード入力 -->
                 <input
