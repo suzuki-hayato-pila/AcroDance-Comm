@@ -94,7 +94,7 @@
             <h1 class="text-3xl font-bold  text-blue-900">投稿一覧</h1>
         {{-- </div> --}}
 
-        <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex space-x-4">
+        <form method="GET" action="{{ route('search') }}" class="mt-6 mb-6 flex items-center space-x-2">
             <div class="flex-grow">
                 <!-- キーワード入力 -->
                 <input
@@ -140,13 +140,18 @@
                     </div>
                     @endif
 
-                    <div>
-                        <a href="{{ route('posts.show', $post->id) }}" class="text-lg font-semibold text-blue-900 hover:underline">
+                    <div class="flex-grow overflow-hidden">
+                        <!-- タイトル: 最大2行まで表示 -->
+                        <a href="{{ route('posts.show', $post->id) }}"
+                           class="text-lg font-semibold text-blue-900 hover:underline block truncate overflow-hidden"
+                           style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal;">
                             {{ $post->title }}
                         </a>
-                        <p class="text-gray-900">{{ $post->content }}</p>
+                        <!-- 投稿内容: 1行にトランケート -->
+                        <p class="text-gray-900 truncate overflow-hidden">{{ $post->content }}</p>
                         <p class="text-gray-500">活動場所: {{ $post->location_name }}</p>
                     </div>
+
                 </div>
             @endforeach
 

@@ -21,7 +21,7 @@
 
 
 <x-app-layout>
-    <div class="max-w-7xl mx-auto p-6 bg-blue-100">
+    <div class="max-w-7xl mx-auto p-6 pb-20 bg-blue-100">
         <!-- 上部タイトル部分 -->
         <div class="bg-gray-100 p-4 rounded-md text-center">
             <h1 class="text-2xl font-bold text-blue-900">{{ $post->title }}</h1>
@@ -90,27 +90,33 @@
         </div>
 
         <!-- 投稿者情報 -->
-        <div class="bg-gray-100 p-4 rounded-md mt-6 flex items-center space-x-4">
-            <h3 class="text-lg font-bold">投稿者情報</h3>
-            {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-16 h-16 rounded-full"> --}}
-            <div class="relative w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                @if ($post->user->profile_photo)
-                    <img src="{{ asset('storage/' . $post->user->profile_photo) }}" alt="プロフィール画像" class="w-full h-full object-cover">
-                @else
-                    <span class="text-center text-gray-500 text-sm font-semibold break-words max-w">プロフィール画像</span>
-                @endif
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold">{{ $post->user->name }}</h3>
-                <a href="{{ $post->user->instagram }}" target="_blank" class="text-blue-500 hover:underline">
-                    {{ $post->user->instagram }}
-                </a>
-                <p class="mt-2 text-gray-700">
-                    <strong>自己紹介:</strong>
-                    {{ $post->user->bio ?? '自己紹介がまだありません。' }}
-                </p>
+        <div class="bg-gray-100 p-4 mt-6 rounded-md">
+            <div class="flex items-center space-x-4">
+                <!-- プロフィール画像 -->
+                <div class="relative w-16 h-16 rounded-full bg-gray-200 flex-shrink-0">
+                    @if ($post->user->profile_photo)
+                        <img src="{{ asset('storage/' . $post->user->profile_photo) }}" alt="プロフィール画像" class="w-full h-full object-cover rounded-full">
+                         {{-- <img src="{{ asset('path-to-avatar.png') }}" alt="プロフィール画像" class="w-16 h-16 rounded-full"> --}}
+                    @else
+                        <span class="text-center text-gray-500 text-sm font-semibold flex items-center justify-center h-full">プロフィール画像</span>
+                    @endif
+                </div>
+                <!-- 投稿者情報ラベルとテキスト -->
+                <div class="flex-grow overflow-hidden">
+                    <h3 class="text-lg font-bold truncate">投稿者情報</h3>
+                    <p class="text-lg font-semibold truncate">{{ $post->user->name }}</p>
+                    <a href="{{ $post->user->instagram }}" target="_blank" class="text-blue-500 hover:underline block truncate">
+                        {{ $post->user->instagram }}
+                    </a>
+                    <p class="mt-2 text-gray-700 break-words">
+                        <strong>自己紹介:</strong>
+                        {{ $post->user->bio ?? '自己紹介がまだありません。' }}
+                    </p>
+                </div>
             </div>
         </div>
+
+
 
         <!-- 編集・削除ボタン（ログインユーザーの投稿のみ表示） -->
         @if (auth()->check() && auth()->id() === $post->user_id)
