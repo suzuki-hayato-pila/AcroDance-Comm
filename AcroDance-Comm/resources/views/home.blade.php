@@ -12,7 +12,7 @@
 
             <!-- メインキャッチフレーズ -->
             <div class="bg-white p-6 text-center rounded-md shadow-md">
-                <h2 class="text-2xl font-semibold text-blue-900">ダンスとアクロバットの練習仲間<br>見つけませんか？</h2>
+                <h2 class="text-lg font-semibold text-blue-900">ダンスとアクロバットの練習仲間<br>見つけませんか？</h2>
             </div>
 
             <!-- イラストの追加 -->
