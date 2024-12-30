@@ -1,3 +1,9 @@
+// 環境変数の値をコンソールに出力して確認
+console.log(
+    "VITE_GOOGLE_MAPS_API_KEY:",
+    import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+);
+
 import "./bootstrap";
 import Alpine from "alpinejs";
 // import { Loader } from "@googlemaps/js-api-loader";

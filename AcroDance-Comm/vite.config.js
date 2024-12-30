@@ -5,6 +5,12 @@ import dotenv from "dotenv"; // dotenvをインポート
 // dotenvの設定を初期化
 dotenv.config();
 
+// ビルド時の環境変数をデバッグ出力
+console.log(
+    "ビルド時の VITE_GOOGLE_MAPS_API_KEY:",
+    process.env.VITE_GOOGLE_MAPS_API_KEY
+);
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -18,16 +24,16 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            "@googlemaps/marker-advanced":
-                "/node_modules/@googlemaps/marker-advanced/dist/index.umd.js",
-        },
-    },
-    // define: {
-    //     // 環境変数をJavaScriptで利用できるように渡す
-    //     "process.env.VITE_GOOGLE_MAPS_API_KEY": JSON.stringify(
-    //         process.env.VITE_GOOGLE_MAPS_API_KEY
-    //     ),
+    // resolve: {
+    //     alias: {
+    //         "@googlemaps/marker-advanced":
+    //             "/node_modules/@googlemaps/marker-advanced/dist/index.umd.js",
+    //     },
     // },
+    define: {
+        // 環境変数をJavaScriptで利用できるように渡す
+        "import.meta.env.VITE_GOOGLE_MAPS_API_KEY": JSON.stringify(
+            process.env.VITE_GOOGLE_MAPS_API_KEY
+        ),
+    },
 });
