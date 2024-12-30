@@ -68,8 +68,10 @@
         </form>
     </div>
 
-    <!-- create.js を読み込む -->
-    <script type="module" src="{{ mix('resources/js/create.js') }}"></script>
+    {{-- <!-- create.js を読み込む -->
+    <script type="module" src="{{ mix('resources/js/create.js') }}"></script> --}}
+        <!-- create.js を Vite で読み込む -->
+        @vite('resources/js/create.js')
 
 
 </x-app-layout>

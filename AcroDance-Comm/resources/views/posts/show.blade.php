@@ -144,7 +144,9 @@
     </div>
 
 
-    <!-- show.js を読み込む -->
-    <script type="module" src="{{ mix('resources/js/show.js') }}"></script>
+    {{-- <!-- show.js を読み込む -->
+    <script type="module" src="{{ mix('resources/js/show.js') }}"></script> --}}
+        <!-- create.js を Vite で読み込む -->
+        @vite('resources/js/show.js')
 
 </x-app-layout>

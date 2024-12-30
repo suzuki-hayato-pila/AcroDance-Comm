@@ -13,6 +13,7 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/create.js",
                 "resources/js/show.js",
+                "resources/js/search.js", // これを追加
             ], // 新しいエントリーポイント],
             refresh: true,
         }),
