@@ -41,4 +41,9 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URL'),
     ],
 
+    // // 既存の設定はそのままにして、以下を追加
+    // 'google_maps' => [
+    //     'key' => env('VITE_GOOGLE_MAPS_API_KEY'),
+    // ],
+
 ];
