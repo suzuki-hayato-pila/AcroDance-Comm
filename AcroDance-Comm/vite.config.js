@@ -24,4 +24,10 @@ export default defineConfig({
                 "/node_modules/@googlemaps/marker-advanced/dist/index.umd.js",
         },
     },
+    // define: {
+    //     // 環境変数をJavaScriptで利用できるように渡す
+    //     "process.env.VITE_GOOGLE_MAPS_API_KEY": JSON.stringify(
+    //         process.env.VITE_GOOGLE_MAPS_API_KEY
+    //     ),
+    // },
 });
