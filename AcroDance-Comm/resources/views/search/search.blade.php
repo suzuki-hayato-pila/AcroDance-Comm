@@ -164,7 +164,11 @@
         @endif
     </div>
 
-    <!-- 地図サムネイル用JavaScript -->
-    <script type="module" src="{{ mix('resources/js/search.js') }}"></script>
+    {{-- <!-- 地図サムネイル用JavaScript -->
+    <script type="module" src="{{ mix('resources/js/search.js') }}"></script> --}}
+        <!-- create.js を Vite で読み込む -->
+        @vite('resources/js/search.js')
+     {{-- <script type="module" src="{{ vite('resources/js/search.js') }}"></script> --}}
+
 </x-app-layout>
 

@@ -103,6 +103,8 @@
         </form>
     </div>
 
-    <!-- Google Maps JavaScript -->
-    <script type="module" src="{{ mix('resources/js/edit.js') }}"></script>
+    {{-- <!-- Google Maps JavaScript -->
+    <script type="module" src="{{ mix('resources/js/edit.js') }}"></script> --}}
+        <!-- create.js を Vite で読み込む -->
+        @vite('resources/js/edit.js')
 </x-app-layout>

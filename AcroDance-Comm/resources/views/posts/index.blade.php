@@ -72,4 +72,7 @@
 
     <!-- 地図サムネイル用JavaScript -->
     <script type="module" src="{{ mix('resources/js/index.js') }}"></script>
+        <!-- create.js を Vite で読み込む -->
+    @vite('resources/js/index.js')
+
 </x-app-layout> --}}
