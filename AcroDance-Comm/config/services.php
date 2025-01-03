@@ -43,7 +43,7 @@ return [
 
     // // 既存の設定はそのままにして、以下を追加
     // 'google_maps' => [
-    //     'key' => env('VITE_GOOGLE_MAPS_API_KEY'),
+    //     'api_key' => env('VITE_GOOGLE_MAPS_API_KEY'),
     // ],
 
 ];
