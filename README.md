@@ -22,6 +22,7 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 - PostgreSQL
 - Docker（Laravel Sail）
 - Git（Sourcetree）
+- Fly.io
 
 ## 主要機能
 
