@@ -43,7 +43,7 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 スマホでの使用をメインと考えたレイアウトになっております。
 ### ホーム画面
 
-<img width="656" alt="スクリーンショット 2024-12-23 14 52 06" src="https://github.com/user-attachments/assets/c74d1298-1ac3-4216-acfb-2611946b9778" />
+<img width="216" alt="Top" src="https://github.com/user-attachments/assets/6b99f93f-7f73-4d8c-bce3-fa38dc3501b6" />
 
 - メインカラーは青を使用し、ダンスやアクロバットのクールなイメージを再現
 - サブカラーは白を基調とし、補色であるオレンジをアクセントして使用
@@ -51,25 +51,25 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
   
 ### 新規投稿画面
 
-<img width="651" alt="スクリーンショット 2024-12-23 14 54 00" src="https://github.com/user-attachments/assets/8e342993-075a-4bdf-b15a-4b6f9011cd84" />
+<img width="217" alt="Create" src="https://github.com/user-attachments/assets/91d04d3d-42bd-4b0e-8998-52b45369fd9c" />
 
 - Google Maps APIを導入し、視覚的に活動場所を表現。
 
 ### 投稿一覧画面
 
-<img width="655" alt="スクリーンショット 2024-12-23 15 09 17" src="https://github.com/user-attachments/assets/1955ae33-3dc5-46bb-85bb-7d9c5d9c09ee" />
+<img width="217" alt="Search" src="https://github.com/user-attachments/assets/94ce6490-144b-4cbf-890e-fd484176377d" />
 
 - タイトル画面の横に地図を表示し、サムネイルとしての役割を追加
 
 ### 投稿詳細画面
 
-<img width="680" alt="スクリーンショット 2024-12-23 17 00 50" src="https://github.com/user-attachments/assets/05727094-7657-492f-a14a-e04973db2b23" />
+<img width="217" alt="Show" src="https://github.com/user-attachments/assets/58f5bb8d-dd67-4f83-a9bc-923b9d1ccbe8" />
 
 - 投稿者の情報を下部に表示。またInstagramのURLをリンクとして表示し、利用者が連絡を取りやすいような導線を意識
 
 ### 投稿編集画面
 
-<img width="654" alt="スクリーンショット 2024-12-23 14 58 23" src="https://github.com/user-attachments/assets/8ae1c8fa-7859-434c-922e-d28c2fa6f0a2" />
+<img width="217" alt="Edit" src="https://github.com/user-attachments/assets/4bdc7e4d-344e-45b0-ba32-2a81277830df" />
 
 ### ER図
 <img width="676" alt="スクリーンショット 2024-12-23 16 32 05" src="https://github.com/user-attachments/assets/e5ca904a-3ef0-4fa9-9102-95a1b5c80571" />
