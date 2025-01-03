@@ -19,7 +19,7 @@ AcroDanceCommは、アクロバットやダンスの練習仲間を見つける�
 
 ### その他
 
-- PostgreSQL←version要確認
+- PostgreSQL
 - Docker（Laravel Sail）
 - Git（Sourcetree）
 
