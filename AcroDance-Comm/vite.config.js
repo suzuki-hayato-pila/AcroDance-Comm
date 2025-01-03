@@ -5,11 +5,11 @@ import dotenv from "dotenv"; // dotenvをインポート
 // dotenvの設定を初期化
 dotenv.config();
 
-// ビルド時の環境変数をデバッグ出力
-console.log(
-    "ビルド時の VITE_GOOGLE_MAPS_API_KEY:",
-    process.env.VITE_GOOGLE_MAPS_API_KEY
-);
+// // ビルド時の環境変数をデバッグ出力
+// console.log(
+//     "ビルド時の VITE_GOOGLE_MAPS_API_KEY:",
+//     process.env.VITE_GOOGLE_MAPS_API_KEY
+// );
 
 export default defineConfig({
     plugins: [
@@ -19,7 +19,8 @@ export default defineConfig({
                 "resources/js/app.js",
                 "resources/js/create.js",
                 "resources/js/show.js",
-                "resources/js/search.js", // これを追加
+                "resources/js/search.js",
+                "resources/js/edit.js",
             ], // 新しいエントリーポイント],
             refresh: true,
         }),
@@ -35,5 +36,7 @@ export default defineConfig({
         "import.meta.env.VITE_GOOGLE_MAPS_API_KEY": JSON.stringify(
             process.env.VITE_GOOGLE_MAPS_API_KEY
         ),
+        // // 以下を追加（process.envを利用する場合に対応）
+        // "process.env": process.env, // Fly.io の環境変数を注入
     },
 });

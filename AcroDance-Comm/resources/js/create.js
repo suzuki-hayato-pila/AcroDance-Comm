@@ -5,6 +5,42 @@ const loader = new Loader({
     libraries: ["places"], // 必要なライブラリ
 });
 
+// // Vite の環境変数を取得
+// const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+// // 環境変数のデバッグ用ログ
+// console.log("Google Maps API Key from Vite:", apiKey);
+
+// if (!apiKey) {
+//     console.error("Google Maps API Key is missing or undefined.");
+// }
+
+// const loader = new Loader({
+//     apiKey: apiKey, // 正しい API キーを設定
+//     libraries: ["places"], // 必要なライブラリ
+// });
+
+// 環境変数の確認用ログ（デバッグ用）
+// console.log("Google Maps API Key:", import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
+
+// // Google Maps APIキーを読み込む（undefined の場合はエラー表示）
+// const apiKey =
+//     import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
+//     "自分のAPI KEY"; // 必要に応じてデフォルト値を設定
+// if (!apiKey || apiKey === "自分のAPI Key") {
+//     console.error("Google Maps API Key is missing or undefined.");
+// }
+
+// const loader = new Loader({
+//     apiKey: apiKey, // 修正済み: 必ず有効なAPIキーを渡す
+//     libraries: ["places"], // 必要なライブラリ
+// });
+
+// const loader = new Loader({
+//     apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Google Maps APIキー
+//     libraries: ["places"], // 必要なライブラリ
+// });
+
 loader.load().then(() => {
     const mapElement = document.getElementById("map");
     if (!mapElement) return; // 地図要素がない場合は終了

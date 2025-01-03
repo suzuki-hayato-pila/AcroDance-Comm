@@ -56,6 +56,5 @@ Route::get('/search/reset', function () {
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
-
 // 認証に関するルート
 require __DIR__ . '/auth.php';
